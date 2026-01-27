@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHARACTER GOALS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0e27;
+            font-family: 'Courier New', monospace;
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 255, 65, 0.03) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            border: 2px solid white;
+            padding: 20px;
+            margin-bottom: 30px;
+            background: rgba(20, 20, 20, 0.95);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            text-align: center;
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: 2px solid #ffaa00;
+            color: #ffaa00;
+            padding: 8px 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background: #ffaa00;
+            color: #0a0e27;
+            box-shadow: 0 0 15px #ffaa00;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            letter-spacing: 6px;
+            text-shadow: 0 0 10px white;
+            margin-bottom: 10px;
+        }
+
+        .header .status {
+            font-size: 12px;
+            color: white;
+        }
+
+        .content-box {
+            border: 2px solid white;
+            background: rgba(20, 20, 20, 0.95);
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .content-title {
+            font-size: 24px;
+            letter-spacing: 4px;
+            text-shadow: 0 0 5px white;
+            border-bottom: 2px solid white;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .goal-section {
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid white;
+            padding: 25px;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+
+        .goal-section:hover {
+            border-color: white;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: white;
+            letter-spacing: 3px;
+            text-shadow: 0 0 5px white;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid white;
+        }
+
+        .goal-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .goal-item {
+            color: white;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+            text-align: justify;
+        }
+
+        .goal-item::before {
+            content: '►';
+            position: absolute;
+            left: 0;
+            color: white;
+            font-size: 16px;
+        }
+
+        .goal-item:hover::before {
+            color: white;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        @media (max-width: 768px) {
+            .back-button {
+                position: static;
+                transform: none;
+                display: block;
+                width: fit-content;
+                margin: 0 auto 15px;
+            }
+
+            .content-box {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanline"></div>
+    
+    <div class="container">
+        <div class="header">
+            <a href="Login.html" class="back-button">◄ RETURN</a>
+            <h1>⬢ OBJECTIVES & GOALS ⬢</h1>
+            <div class="status">[ MODULE: GOALS | STATUS: ACTIVE ]</div>
+        </div>
+
+        <div class="content-box">
+            <div class="content-title">⟨ OBJECTIVES ⟩</div>
+
+            <!-- SHORT TERM GOALS -->
+            <div class="goal-section">
+                <div class="section-title">⟨ UNIMPORTANT ⟩</div>
+                <ul class="goal-list">
+                    <li class="goal-item">Become a psychologist</li>
+                    <li class="goal-item">Go up in ranks</li>
+                    <li class="goal-item" style="text-decoration: line-through;">Reach the NCO core</li>
+                </ul>
+            </div>
+
+            <div class="goal-section">
+                <div class="section-title">⟨ SEMI-IMPORTANT ⟩</div>
+                <ul class="goal-list">
+                    <li class="goal-item">Find a way to wake up Anna</li>
+                    <li class="goal-item">Reach the CO core</li>
+                </ul>
+            </div>
+
+            <!-- LONG TERM GOALS -->
+            <div class="goal-section">
+                <div class="section-title">⟨ IMPORTANT ⟩</div>
+                <ul class="goal-list">
+                    <li class="goal-item" style="text-decoration: line-through;"> Send money to Katrina</li>
+                    <li class="goal-item">Find more information on Sarkics</li>
+                    <li class="goal-item">Help people around you</li>
+                    <li class="goal-item">Become an IA or XI-8</li>
+                </ul>
+            </div>
+
+            <!-- PERSONAL ASPIRATIONS -->
+            <div class="goal-section">
+                <div class="section-title">⟨ URGENT ⟩</div>
+                <ul class="goal-list">
+                    <li class="goal-item" style="text-decoration: line-through;">Find Zachariah</li>
+                    <li class="goal-item">Find and kill possible Sarkics infiltrator</li>
+                    <li class="goal-item">Answer all of my thoughts</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

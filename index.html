@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECURE ACCESS TERMINAL</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0e27;
+            font-family: 'Courier New', monospace;
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 255, 65, 0.03) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        .terminal {
+            width: 90%;
+            max-width: 800px;
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid white;
+            border-radius: 8px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.3), inset 0 0 40px rgba(0, 255, 65, 0.05);
+            padding: 30px;
+            position: relative;
+        }
+
+        .terminal::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, white, white, white);
+            border-radius: 8px;
+            z-index: -1;
+            opacity: 0.3;
+            filter: blur(10px);
+        }
+
+        .header {
+            border-bottom: 2px solid white;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px white;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 10px white, 0 0 20px white; }
+            50% { text-shadow: 0 0 20px white, 0 0 30px white; }
+        }
+
+        .status {
+            font-size: 12px;
+            margin-top: 8px;
+            color: white;
+        }
+
+        .output {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .output-line {
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .output-line:nth-child(1) { animation-delay: 0.3s; }
+        .output-line:nth-child(2) { animation-delay: 0.6s; }
+        .output-line:nth-child(3) { animation-delay: 0.9s; }
+        .output-line:nth-child(4) { animation-delay: 1.2s; }
+        .output-line:nth-child(5) { animation-delay: 1.5s; }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .prompt {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .prompt-symbol {
+            color: white;
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            outline: none;
+            caret-color: white;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 18px;
+            background: white;
+            animation: blink 1s step-end infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .btn-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .access-btn {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            padding: 12px 40px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .access-btn:hover {
+            background: white;
+            color: #0a0e27;
+            box-shadow: 0 0 20px white;
+        }
+
+        .warning {
+            color: red;
+            font-size: 15px;
+            margin-top: 20px;
+            text-align: center;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="scanline"></div>
+    
+    <div class="terminal">
+        <div class="header">
+            <h1>⬢ SECURE ACCESS TERMINAL ⬢</h1>
+            <div class="status">[ SYSTEM ONLINE | ENCRYPTION: LEVEL 2 ]</div>
+        </div>
+
+        <div class="output">
+            <div class="output-line">>_ Initializing secure connection...</div>
+            <div class="output-line">>_ Connecting to database SITE-66...</div>
+            <div class="output-line">>_ Handshake complete. Authentication required.</div>
+            <div class="output-line">>_ </div>
+            <div class="output-line">>_ Enter credentials to access classified files.</div>
+        </div>
+
+        <div class="prompt">
+            <span class="prompt-symbol">*</span>
+            <input type="text" id="username" placeholder="USERNAME" autocomplete="off">
+        </div>
+
+        <div class="prompt">
+            <span class="prompt-symbol">*</span>
+            <input type="password" id="password" placeholder="PASSWORD" autocomplete="off">
+        </div>
+
+        <div class="btn-container">
+            <button class="access-btn" onclick="accessDatabase()">ACCESS DATABASE</button>
+        </div>
+
+        <div class="warning">
+            ⚠ WARNING: Unauthorized access is prohibited and will be prosecuted ⚠
+        </div>
+    </div>
+
+    <script>
+        function accessDatabase() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username && password) {
+                window.location.href = 'Login.html';
+            } else {
+                alert('ERROR: Invalid credentials\n\nPlease enter both username and password.');
+            }
+        }
+
+        // Allow Enter key to submit
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                accessDatabase();
+            }
+        });
+    </script>
+</body>
+</html>

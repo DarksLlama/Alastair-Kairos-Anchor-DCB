@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAMILY RELATIONS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0e27;
+            font-family: 'Courier New', monospace;
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 255, 65, 0.03) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            border: 2px solid white;
+            padding: 20px;
+            margin-bottom: 30px;
+            background: rgba(20, 20, 20, 0.95);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            text-align: center;
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: 2px solid #ffaa00;
+            color: #ffaa00;
+            padding: 8px 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background: #ffaa00;
+            color: #0a0e27;
+            box-shadow: 0 0 15px #ffaa00;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            letter-spacing: 6px;
+            text-shadow: 0 0 10px white;
+            margin-bottom: 10px;
+        }
+
+        .header .status {
+            font-size: 12px;
+            color: white;
+        }
+
+        .content-box {
+            border: 2px solid white;
+            background: rgba(20, 20, 20, 0.95);
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .content-title {
+            font-size: 24px;
+            letter-spacing: 4px;
+            text-shadow: 0 0 5px white;
+            border-bottom: 2px solid white;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .person-card {
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid white;
+            padding: 25px;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+
+        .person-card:hover {
+            border-color: white;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .person-main {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .person-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .person-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .person-image::before {
+            content: '[ IMAGE ]';
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            opacity: 0.5;
+            position: absolute;
+        }
+
+        .person-image:has(img)::before {
+            display: none;
+        }
+
+        .person-profile {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .person-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid white;
+        }
+
+        .person-name {
+            font-size: 20px;
+            color: white;
+            letter-spacing: 2px;
+        }
+
+        .person-status {
+            font-size: 12px;
+            color: white;
+            padding: 5px 15px;
+            border: 1px solid white;
+        }
+
+        .person-info {
+            margin-bottom: 12px;
+        }
+
+        .person-info .label {
+            color: white;
+            font-size: 12px;
+            display: inline-block;
+            width: 120px;
+        }
+
+        .person-info .value {
+            color: white;
+            font-size: 14px;
+        }
+
+        .person-section {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 2px solid white;
+        }
+
+        .section-label {
+            color: white;
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        h2{
+            color: white;
+            font-size: 20px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            display: block;     
+        }
+
+        .section-content {
+            color: white;
+            font-size: 14px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .divider {
+            height: 1px;
+            background: white;
+            margin: 35px 0;
+            opacity: 0.3;
+        }
+
+
+        @media (max-width: 968px) {
+            .person-main {
+                grid-template-columns: 1fr;
+            }
+
+            .person-image {
+                max-width: 200px;
+                margin: 0 auto;
+            }
+
+            .back-button {
+                position: static;
+                transform: none;
+                display: block;
+                width: fit-content;
+                margin: 0 auto 15px;
+            }
+
+            .content-box {
+                padding: 25px;
+            }
+
+            .person-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanline"></div>
+    
+    <div class="container">
+        <div class="header">
+            <a href="Menu.html" class="back-button">◄ RETURN</a>
+            <h1>⬢ FAMILY RELATIONS ⬢</h1>
+            <div class="status">[ FACTION: FAMILY | STATUS: ACTIVE ]</div>
+        </div>
+
+        <div class="content-box">
+            <div class="content-title">⟨ FAMILY MEMBERS ⟩</div>
+
+            <!-- Person 1 -->
+            <div class="person-card">
+                <div class="person-main">
+                    <div class="person-image">
+                        <img src="../img/Katrina Kosnov.png" alt="Katrina Kosnov">
+                    </div>
+                    
+                    <div class="person-profile">
+                        <div class="person-header">
+                            <div class="person-name">Katrina Kosnov</div>
+                            <div class="person-status" style="color: maroon;">Deceased</div>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">RELATION:</span>
+                            <span class="value">Wife</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">AGE:</span>
+                            <span class="value">28</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">NATIONALITY:</span>
+                            <span class="value">Bulgarian/Canadian</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">SEX:</span>
+                            <span class="value">Female</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">POB:</span>
+                            <span class="value">Sofia, Bulgaria</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">DOB:</span>
+                            <span class="value">4/may/1997</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">CURRENT OCCUPATION:</span>
+                            <span class="value">Deceased</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">PAST OCCUPATION:</span>
+                            <span class="value">Hotel secretary</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">ADDITIONAL INFO:</span>
+                            <span class="value">Natural dark red hair | Like roses | Always wear her wedding ring | Natural red eyes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="person-section">
+                    <span class="section-label">► HISTORY</span>
+                    <div class="section-content">
+                        <h2>CHILDHOOD/TEENAGEHOOD</h2>
+                        Katrina was the only child of a familly of Bulgarian immigrants that moved to Canada. She arrived along with her parents at the age of 4. She studied French until 3rd grade where she frequented a normal school. As soon as she entered High School, she met Anchor. It was a real coup de foudre. They both dated during their whole year, often spending countless night starring at the stars. They always followed each other, one was a moth and the other one the flame. They would always choose the same field of studies until they reached university. 
+                        <div class="divider"></div>
+                        <h2>"POUR TOI, MON AMOUR"</h2>
+                        Before they left for Uni, they got engaged and got a big wedding with both of their family. They would spent not only one of the last night together but with their families as well. The morning before Alastair left, he told her not to worry, he will be cautious and will call her every week. He also made a promise that whatever happens, he will forever love her. As soon that Abnchor left, she would join the Canadian Royal Canadian Air Force. When she wasn't on duty, she would often visit Alastair parents and her own. They would often call when they could.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Person 1 -->
+            <div class="person-card">
+                <div class="person-main">
+                    <div class="person-image">
+                        <img src="../img/Anne Tremblay.png" alt="Anne Tremblay">
+                    </div>
+                    
+                    <div class="person-profile">
+                        <div class="person-header">
+                            <div class="person-name">Anne Tremblay</div>
+                            <div class="person-status" style="color: grey;">Coma</div>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">RELATION:</span>
+                            <span class="value">Adoptive mother</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">AGE:</span>
+                            <span class="value">73</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">NATIONALITY:</span>
+                            <span class="value">Canadian</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">SEX:</span>
+                            <span class="value">Female</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">POB:</span>
+                            <span class="value">Gatineau, Québec, Canada</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">DOB:</span>
+                            <span class="value">25/april/1952</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">CURRENT OCCUPATION:</span>
+                            <span class="value">Hospitalized (Coma)</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">PAST OCCUPATION:</span>
+                            <span class="value">Teacher</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">ADDITIONAL INFO:</span>
+                            <span class="value">Loves to read books | Smallest of the family | Went into coma at 71</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="person-section">
+                    <span class="section-label">► HISTORY</span>
+                    <div class="section-content">
+                        <h2>CHILDHOOD/TEENAGEHOOD</h2>
+                        Anne was born in a wealthy family. She was the eldest of her 3 other siblings. Since a young age, she learned the importance of being the best, helping others, obeying orders and having the best grades possible. 
+                        Her parents were very strict during her childhood, often leaving her alone with her younger siblings to take care of. Even with all this pressure, Anne succeeded in her child life, having the best grade at the cost of few friends.
+                        During her Teenagehood, she continued being a top student but became more rebellious towards her parents, often doing what she wanted. During one night, her parents had a party with other rich people. She was told to stay at the house with her siblings. She didn’t listen and left the house to join her friend at another party. When she came back she saw her house on fire, her parents car was there. The firefighters arrived not long after, extinguishing the fire. When they approached her, they told them she was the last alive of her family. She live with this guilt for the rest of her life.
+                        <div class="divider"></div>
+                        <h2>THE COMA</h2>
+                        One day, her life changed around when she met George. Both of them were love birds, nearly never leaving each other sides. Once they adopted the two brothers, she made herself a promise to never leave their side. When they grewed up, she teached them important lesson: How important to listen to orders and to be there for their family.
+                        When the boys grew older, Anchor went away to study while Zachariah stayed home, helping their parents. One day, while Zachariah was gone, Anne felt very sick, she called for Zach as George was at work but he never responded.  
+                        Once George arrived back home, he saw Anne on the floor and called an ambulance. Once they arrived they told Mr.Anchor that she was in a coma. 
+                        She felled in that coma at 2 years ago, at 71 years old.                    
+                    </div>
+                </div>
+            </div>
+
+            <!-- Person 1 -->
+            <div class="person-card">
+                <div class="person-main">
+                    <div class="person-image">
+                        <img src="../img/George Anchor.png" alt="George Anchor">
+                    </div>
+                    
+                    <div class="person-profile">
+                        <div class="person-header">
+                            <div class="person-name">George Anchor</div>
+                            <div class="person-status" style="color: yellowgreen;">Alive</div>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">RELATION:</span>
+                            <span class="value">Adoptive father</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">AGE:</span>
+                            <span class="value">75</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">NATIONALITY:</span>
+                            <span class="value">Canadian</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">SEX:</span>
+                            <span class="value">Male</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">POB:</span>
+                            <span class="value">Calgary, Edmonton, Canada</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">DOB:</span>
+                            <span class="value">25/december/1950</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">CURRENT OCCUPATION:</span>
+                            <span class="value">Baker</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">PAST OCCUPATION:</span>
+                            <span class="value">Farmer</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">ADDITIONAL INFO:</span>
+                            <span class="value">Overweight | Struggle to keep his bakery opened | Workaholic</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="person-section">
+                    <span class="section-label">► HISTORY</span>
+                    <div class="section-content">
+                        <h2>CHILDHOOD/TEENAGEHOOD</h2>
+                        George was the only child of a family of farmers. At a very young age he was thought how to treat animals like humans, how to work with barely any rest but never really got any proper education.
+                        Once he reached 10, his father showed him how to bake and since then he devoted his life to bakery. 
+                        Throughout his teenagehood, he would start going to school. His grades were below average but he still was determined. After his high school graduation, he would move alone to Québec to open his own bakery, Boulangerie Anchor. He would meet months after his future wife, Anne Tremblay. They would later move in together
+                        <div class="divider"></div>
+                        <h2>THE ADOPTION</h2>
+                        After multiple years, George and Anne lived a wonderful life but they felt something was missing, a child. They tried multiple time to have one but they always failed. Once they were in their 40’s, they settled to adopt. That’s where they found the two brothers. 
+                        Now a full grown family, they found what they were missing.
+                        When the two boys grew up, George told them valuable lesson, how education was important, that you need to work hard to achieve their dream and valuable morals and ethics to have in a life. 
+                        two events happened in his live that changed him:
+                        -His wife fell into a coma.
+                        -Zachariah suddenly disappeared, without leaving any trace.
+                        George would call Alastair to come back home due to the importance of the event.                
+                    </div>
+                </div>
+            </div>
+
+            <!-- Person 1 -->
+            <div class="person-card">
+                <div class="person-main">
+                    <div class="person-image">
+                        <img src="../img/Zach Anchor.png" alt="Zachariah Anchor">
+                    </div>
+                    
+                    <div class="person-profile">
+                        <div class="person-header">
+                            <div class="person-name">Zachariah Anchor</div>
+                            <div class="person-status" style="color: maroon;">Missing, presumed dead</div>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">RELATION:</span>
+                            <span class="value">Brother</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">AGE:</span>
+                            <span class="value">28</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">NATIONALITY:</span>
+                            <span class="value">Canadian</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">SEX:</span>
+                            <span class="value">Male</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">POB:</span>
+                            <span class="value">Québec, Québec, Canada</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">DOB:</span>
+                            <span class="value">24/october/1997</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">CURRENT OCCUPATION:</span>
+                            <span class="value">Missing</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">PAST OCCUPATION:</span>
+                            <span class="value">Security guard</span>
+                        </div>
+                        <div class="person-info">
+                            <span class="label">ADDITIONAL INFO:</span>
+                            <span class="value">Never knew what to study in | Dissapeared without leaving a trace | Also loved Katrina</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="person-section">
+                    <span class="section-label">► HISTORY</span>
+                    <div class="section-content">
+                        <h2>CHILDHOOD/TEENAGEHOOD</h2>
+                        Zachariah was somewhat similar to his brother, he acted and thought somewhat like his brother. He would always be competitive towards him, in any domain. He would follow Alastair throughout his whole primary and secondary school until cégep. He would dropout and focus on his career as a bodyguard/security guard. He followed lesson in self-defence and how to handle potential threat situation. He would later move in Montréal downtown and did gigs over there. Alastair, George and Anna would try to convince him to go back to studied but he always refused.
+                        <div class="divider"></div>
+                        <h2>THE DISSAPEARANCE</h2>
+                        One day, when Anne was sick, Zachariah came to help his mother around while George was working. Zach would make sure she had everything she needed. Later that day, he went to go grab some painkiller for his mother. This was the last time he was seen. Police could never find him back. A manhunt in the whole continent was sent for him but he as yet to be found. Alastair would rush to help his father but had to leave shortly after to join the foundation. For him, Zach was his best friend, best rival but overall, his dearest brother.               
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

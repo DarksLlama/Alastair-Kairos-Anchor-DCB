@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SITE RELATIONS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0e27;
+            font-family: 'Courier New', monospace;
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 255, 65, 0.03) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            border: 2px solid white;
+            padding: 20px;
+            margin-bottom: 30px;
+            background: rgba(20, 20, 20, 0.95);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            text-align: center;
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: 2px solid #ffaa00;
+            color: #ffaa00;
+            padding: 8px 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background: #ffaa00;
+            color: #0a0e27;
+            box-shadow: 0 0 15px #ffaa00;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            letter-spacing: 6px;
+            text-shadow: 0 0 10px white;
+            margin-bottom: 10px;
+        }
+
+        .header .status {
+            font-size: 12px;
+            color: white;
+        }
+
+        .department-section {
+            border: 2px solid white;
+            background: rgba(20, 20, 20, 0.95);
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .department-header {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid white;
+        }
+
+        .department-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .department-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .department-image::before {
+            content: '[ DEPT LOGO ]';
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            opacity: 0.5;
+            position: absolute;
+        }
+
+        .department-image:has(img)::before {
+            display: none;
+        }
+
+        .department-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .department-title {
+            font-size: 24px;
+            letter-spacing: 4px;
+            text-shadow: 0 0 5px white;
+            margin-bottom: 20px;
+        }
+
+        .department-description {
+            color: white;
+            font-size: 14px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .personnel-title {
+            font-size: 18px;
+            color: white;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid white;
+        }
+
+        .personnel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .personnel-card {
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid white;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .personnel-card:hover {
+            border-color: white;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .personnel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid white;
+        }
+
+        .personnel-name {
+            font-size: 16px;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        .personnel-rank {
+            font-size: 11px;
+            color: white;
+            padding: 4px 10px;
+            border: 1px solid white;
+        }
+
+        .personnel-info {
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        .personnel-info .label {
+            color: white;
+            display: inline-block;
+            width: 90px;
+        }
+
+        .personnel-info .value {
+            color: white;
+        }
+
+
+        @media (max-width: 968px) {
+            .department-header {
+                grid-template-columns: 1fr;
+            }
+
+            .department-image {
+                max-width: 250px;
+                margin: 0 auto;
+            }
+
+            .back-button {
+                position: static;
+                transform: none;
+                display: block;
+                width: fit-content;
+                margin: 0 auto 15px;
+            }
+
+            .personnel-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanline"></div>
+    
+    <div class="container">
+        <div class="header">
+            <a href="Menu.html" class="back-button">◄ RETURN</a>
+            <h1>⬢ SITE RELATIONS ⬢</h1>
+            <div class="status">[ FACTION: SITE | STATUS: ACTIVE ]</div>
+        </div>
+
+        <!-- GENERAL SECURITY -->
+        <div class="department-section">
+            <div class="department-header">
+                <div class="department-image">
+                    <img src="../img/GENSEC.png" alt="General Security">
+                </div>
+                <div class="department-info">
+                    <div class="department-title">⟨ GENERAL SECURITY ⟩</div>
+                </div>
+            </div>
+
+            <div class="personnel-title">► PERSONNEL</div>
+            <div class="personnel-grid">
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">'Reaper'</div>
+                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">Captain</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: yellowgreen;">Like</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"A great Caotain. I know not do doubt is order. Tho I think he knows the same thing I do, but I made a promise"</span>
+                    </div>
+                </div>
+                
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">'Hades'</div>
+                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">Executive Officer</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: yellowgreen;">Like</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"A great XO. wonderful leader that I will follow until I die. I would never question orders from you"</span>
+                    </div>
+                </div>
+
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">'Alastor'</div>
+                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">Warrant Officer</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: yellowgreen;">Like</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"My trainer and my main promoter. You are both my mentor and my close friend."</span>
+                    </div>
+                </div>
+
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">Arkian Sean</div>
+                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">Sergeant First Class</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value"style="color: yellowgreen;">Like</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"The only person left near a brother to me. I would die for you. Please dont go."</span>
+                    </div>
+                </div>
+
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">Gerald White</div>
+                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">Sergeant First Class</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: yellowgreen;">Like</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"An honest and hard working guy. I have much respect for his hard work. Something is off. You are hiding your past. Why?"</span>
+                    </div>
+                </div>
+
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">Jacobs Smithfield</div>
+                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">Lance Corporal</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: yellowgreen;">Like</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"Thank you. Thank you for taking the time to talk to me. I will never forget that. Even if we end up against eachother."</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MEDICAL DEPARTMENT -->
+        <div class="department-section">
+            <div class="department-header">
+                <div class="department-image">
+                    <img src="../img/Medics.png" alt="Medical Department"> 
+                </div>
+                <div class="department-info">
+                    <div class="department-title">⟨ MEDICAL DEPARTMENT ⟩</div>
+                </div>
+            </div>
+
+            <div class="personnel-title">► PERSONNEL</div>
+            <div class="personnel-grid">
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">Sébastien Leblanc</div>
+                        <div class="personnel-rank" style="color: maroon;">Deceased</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">Unknow</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: grey;">Mixed</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"You where one of the only other Québécois around here... Yet you've fallen to the hands of the Sarkics and you paid the price"</span>
+                    </div>
+                </div>
+
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">'Anaphia'</div>
+                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">AP</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: yellowgreen;">Like</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"You lost so much yet you keep on going. Man I wish I could have your mindset. I will always be there if you need me and I'll keep fighting."</span>
+                    </div>
+                </div>
+
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">'Bane'</div>
+                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">Senior Medical Officer</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: grey;">Mixed</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"You executed a man who was cured. Even if it was an order, you shouldn't have done it. Don't follow blindely."</span>
+                    </div>
+                </div>
+        </div>
+
+        <!-- E-11 'NINE TAIL FOX' -->
+        <div class="department-section">
+            <div class="department-header">
+                <div class="department-image">
+                    <img src="../img/NTF.png" alt="E-11"> 
+                </div>
+                <div class="department-info">
+                    <div class="department-title">⟨ E-11 'NINE TAIL FOX' ⟩</div>
+                    <div class="department-description">
+                        No interaction entered
+                    </div>
+                </div>
+            </div>
+
+            <div class="personnel-title">► PERSONNEL</div>
+            <div class="personnel-grid">
+                
+            </div>
+        </div>
+
+        <!-- NU-7 'HAMMER DOWN' -->
+        <div class="department-section">
+            <div class="department-header">
+                <div class="department-image">
+                    <img src="../img/N7.png" alt="NU-7"> 
+                </div>
+                <div class="department-info">
+                    <div class="department-title">⟨ NU-7 'HAMMER DOWN' ⟩</div>
+                </div>
+            </div>
+
+            <div class="personnel-title">► PERSONNEL</div>
+            <div class="personnel-grid">
+                <div class="personnel-card">
+                        <div class="personnel-header">
+                            <div class="personnel-name">Jackeline Worzzic</div>
+                            <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                        </div>
+                        <div class="personnel-info">
+                            <span class="label">POSITION:</span>
+                            <span class="value">Sergeant First Class</span>
+                        </div>
+                        <div class="personnel-info">
+                            <span class="label">RELATION:</span>
+                            <span class="value" style="color: yellowgreen;">Like</span>
+                        </div>
+                        <div class="personnel-info">
+                            <span class="label">THOUGHTS:</span>
+                            <span class="value">"One of the rare D-Class who made it into foundation. A great helper and talker. She worries about the right thing"</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SITE STAFF -->
+        <div class="department-section">
+            <div class="department-header">
+                <div class="department-info">
+                    <div class="department-title">⟨ SITE STAFF ⟩</div>
+                    <div class="department-description">
+                        No interaction entered
+                    </div>
+                </div>
+            </div>
+
+            <div class="personnel-title">► PERSONNEL</div>
+        </div>
+
+        <!-- INTERNAL AFFAIR -->
+        <div class="department-section">
+            <div class="department-header">
+                <div class="department-image">
+                    <img src="../img/IA.png" alt="Internal Affair"> 
+                </div>
+                <div class="department-info">
+                    <div class="department-title">⟨ INTERNAL AFFAIR ⟩</div>
+                </div>
+            </div>
+
+            <div class="personnel-title">► PERSONNEL</div>
+            <div class="personnel-grid">
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">'Kyuubi'</div>
+                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">Detective</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: maroon;">Dislike</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"Actions speak louder than word... To what point?"</span>
+                    </div>
+                </div>
+
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">'Aegis'</div>
+                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">Detective</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: yellowgreen;">Neutral</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"STOP ASKING WHY IM FRENCH PLEASEEEE!"</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- XI-8 'LAST TO FALL' -->
+        <div class="department-section">
+            <div class="department-header">
+                <div class="department-image">
+                    <img src="../img/XI8.png" alt="XI-8"> 
+                </div>
+                <div class="department-info">
+                    <div class="department-title">⟨ XI-8 'LAST TO FALL' ⟩</div>
+                </div>
+            </div>
+
+            <div class="personnel-title">► PERSONNEL</div>
+            <div class="personnel-grid">
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">'Obsidian'</div>
+                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">Captain</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: yellowgreen;">Like</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"Twice now. Twice that you helped me clear my mind, clear my doubt. Yet it was the second time too much. I will be better and trust my judgement. Thanks."</span>
+                    </div>
+                </div>
+
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">'Arcana'</div>
+                        <div class="personnel-rank" style="color: maroon;">Deceased</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">Squad Lead</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: red;">Hate</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"You just had to bring me into that room. That quiet and bad smelling room. All that to interogate me in the worst way possible."</span>
+                    </div>
+                </div>
+
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">'Curie'</div>
+                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">Opertaive</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: maroon;">Dislike</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"We are not executioner? Say this to the people you killed. Say this to the D-Class who died for our test. We are executioners. Just not for SCPs"</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SITE COMMAND -->
+        <div class="department-section">
+            <div class="department-header">
+                <div class="department-info">
+                    <div class="department-title">⟨ SITE COMMAND ⟩</div>
+                </div>
+            </div>
+
+            <div class="personnel-title">► PERSONNEL</div>
+            <div class="personnel-grid">
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">'Druid'</div>
+                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">Assistant Site Director</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: green;">Positive</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"You gave me a good dilemma. You also made me realise that orders are more important than life. Ethics are none important if they come from higher up. Now you congratulated me for my action. I guess I did the right thing. I thanks you for letting me know you'll always be there to talk."</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- D-CLASS -->
+        <div class="department-section">
+            <div class="department-header">
+                <div class="department-info">
+                    <div class="department-title">⟨ D-CLASS ⟩</div>
+                </div>
+            </div>
+
+            <div class="personnel-title">► PERSONNEL</div>
+            <div class="personnel-grid">
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">'Eggs'</div>
+                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">D-Class</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: yellowgreen;">Like</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"My top D-Class. Never combative but always manage to escape."</span>
+                    </div>
+                </div>
+
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">'Micro'</div>
+                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">D-Class</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: yellowgreen;">Hate</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"A more combative D-Class. But recently you shown me the light. I couldn't kill another armless human being. I should have stopped 'Bane'... You've betrayed me. You letted those CI take me away! Was I not good enought towards you!?"</span>
+                    </div>
+                </div>
+
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">'Steel'</div>
+                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">D-Class</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: yellowgreen;">like</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"You told me intersting stuff. Now I know what to do to try and save this world. Or help those who are lost in their"</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

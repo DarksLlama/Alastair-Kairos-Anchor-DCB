@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECURE MESSAGE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* TERMINAL LOGIN SCREEN */
+        .terminal-body {
+            background: #0a0e27;
+            color: white;
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 255, 65, 0.03) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        .login-screen {
+            width: 90%;
+            max-width: 600px;
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid white;
+            border-radius: 8px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+            padding: 40px;
+        }
+
+        .login-screen.hidden {
+            display: none;
+        }
+
+        .login-title {
+            font-size: 24px;
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px white;
+            margin-bottom: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .login-prompt {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .login-prompt-symbol {
+            color: white;
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        .login-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .login-button {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            padding: 12px 40px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .login-button:hover {
+            background: white;
+            color: rgba(20, 20, 20, 0.95);
+            box-shadow: 0 0 20px white;
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 14px;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+        }
+
+        /* LOADING SCREEN */
+        .loading-screen {
+            display: none;
+            width: 90%;
+            max-width: 600px;
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid white;
+            border-radius: 8px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .loading-screen.active {
+            display: block;
+        }
+
+        .loading-title {
+            font-size: 20px;
+            letter-spacing: 3px;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .loading-bar-container {
+            width: 100%;
+            height: 30px;
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid white;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading-bar {
+            height: 100%;
+            background: linear-gradient(90deg, white, white);
+            width: 0%;
+            transition: width 0.3s;
+            box-shadow: 0 0 20px white;
+        }
+
+        .loading-text {
+            font-size: 14px;
+            color: white;
+        }
+
+        /* WINDOWS XP UI */
+        .xp-body {
+            background: linear-gradient(180deg, #5a7fdc, #3c64c8);
+            font-family: 'Tahoma', 'Arial', sans-serif;
+        }
+
+        .xp-screen {
+            display: none;
+            width: 90%;
+            max-width: 900px;
+        }
+
+        .xp-screen.active {
+            display: block;
+        }
+
+        .xp-window {
+            background: #ece9d8;
+            border: 3px solid;
+            border-color: #0831d9 #0831d9 #001ea3 #001ea3;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .xp-titlebar {
+            background: linear-gradient(180deg, #0997ff, #0053ee 8%, #0050ee 40%, #06f 88%, #06f 93%, #005bff 95%, #003dd7);
+            padding: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .xp-title {
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            padding-left: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .xp-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+            background: white;
+            display: inline-block;
+        }
+
+        .xp-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .xp-button {
+            width: 21px;
+            height: 21px;
+            background: linear-gradient(180deg, #3c8dff, #0050ee);
+            border: 1px solid;
+            border-color: #fff #000 #000 #fff;
+            cursor: pointer;
+            font-size: 12px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .xp-button:active {
+            border-color: #000 #fff #fff #000;
+        }
+
+        .xp-content {
+            padding: 20px;
+            background: #ece9d8;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .xp-section {
+            background: white;
+            border: 2px solid;
+            border-color: #7f9db9 #fff #fff #7f9db9;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .xp-section-title {
+            color: #003c74;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #0831d9;
+        }
+
+        .audio-container {
+            background: #f0f0f0;
+            border: 2px inset #999;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .audio-visualizer {
+            display: none;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 5px;
+            height: 60px;
+            background: #000;
+            padding: 10px;
+            border: 1px solid #333;
+            margin-bottom: 10px;
+        }
+
+        .audio-visualizer.active {
+            display: flex;
+        }
+
+        .vis-bar {
+            width: 8px;
+            background: linear-gradient(to top, white, grey);
+            transition: height 0.1s;
+            box-shadow: 0 0 5px white;
+            height: 5px;
+        }
+
+        audio {
+            width: 100%;
+            outline: none;
+            margin-bottom: 10px;
+        }
+
+        .recording-label {
+            color: #003c74;
+            font-weight: bold;
+            font-size: 13px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .translation-box {
+            background: white;
+            border: 2px inset #999;
+            padding: 15px;
+            min-height: 150px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #000;
+            margin-top: 10px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #0831d9;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .back-link:hover {
+            color: #ff6600;
+        }
+
+        @media (max-width: 768px) {
+            .xp-content {
+                padding: 15px;
+            }
+            
+            .audio-container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body class="terminal-body">
+    <div class="scanline"></div>
+
+    <!-- LOGIN SCREEN -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-title">⬢ SECURE ACCESS ⬢</div>
+        
+        <div class="login-prompt">
+            <span class="login-prompt-symbol">$</span>
+            <input type="text" id="username" class="login-input" placeholder="USERNAME" autocomplete="off">
+        </div>
+
+        <div class="login-prompt">
+            <span class="login-prompt-symbol">$</span>
+            <input type="password" id="password" class="login-input" placeholder="PASSWORD" autocomplete="off">
+        </div>
+
+        <button class="login-button" onclick="checkLogin()">ACCESS</button>
+        
+        <div class="error-message" id="errorMessage">⚠ ACCESS DENIED: INVALID CREDENTIALS</div>
+    </div>
+
+    <!-- LOADING SCREEN -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-title">LOADING IN PDA...</div>
+        
+        <div class="loading-bar-container">
+            <div class="loading-bar" id="loadingBar"></div>
+        </div>
+        
+        <div class="loading-text" id="loadingText">INITIALIZING USER PERSONAL DATA...</div>
+    </div>
+
+    <!-- WINDOWS XP SCREEN -->
+    <div class="xp-screen" id="xpScreen">
+        <div class="xp-window">
+            <div class="xp-titlebar">
+                <div class="xp-title">
+                    <span class="xp-icon">📧</span>
+                    Personal Messages
+                </div>
+                <div class="xp-controls">
+                    <div class="xp-button">_</div>
+                    <div class="xp-button">□</div>
+                    <div class="xp-button">×</div>
+                </div>
+            </div>
+
+            <div class="xp-content">
+                <!-- Recording 1 -->
+                <div class="xp-section">
+                    <div class="xp-section-title">Recording of 25th of December 2025</div>
+                    <div class="audio-container">
+                        <span class="recording-label">Audio File:</span>
+                        <div class="audio-visualizer" data-index="0">
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                        </div>
+                        <audio controls class="audio-player" data-index="0">
+                            <source src="Recording/25D2025.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <span class="recording-label">Translation / Transcription:</span>
+                        <div class="translation-box">
+                            25th of December 2025. Today, my wife died, well that was what was written in the letter.
+                            Umm. It is a day, way more... umm. Darker than usual. Even tho being in Alaska, I feel likes its
+                            rainning. A rain that is not white and not frozen, but a rain [INAUDIBLE]. A feeling of sorrow [INAUDIBLE]
+                            that I am in site-66. and umm. I would like to say that I am really happy, that I love being here 
+                            But even tho I survived my past site... I don't know... I am just thinking like and idiot. Now my wife is dead
+                            I thought I had friend here, I thought I could restart my life here so I can finally find back my brother
+                            So I could return to my normal life of a civillian. But even tho its not the same thing. Now I can't turn back 
+                            My wife is dead. My mother is in a coma. And my brother is possibly dead as well. I started to smoke. A sensation
+                            that did more good to me then I thought at the start. A feeling that... I can't forget. Oh Katrina... I needed
+                            you so much but now you are gone. I loved you, I love you and I'll love you... And this until the end of my life
+                            I wished I could have had a kid with you, I wished to have a calmer life than currently... And there you go.
+                            You are not and I am. I'll do my best, rebuild my reputation and make sure this site does not see me the same way
+                            that they did from the beginning and the end. Ah... Well... I'll finish this log. Log number one. End.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recording 2 -->
+                <div class="xp-section">
+                    <div class="xp-section-title">Recording of 10th of January 2026</div>
+                    <div class="audio-container">
+                        <span class="recording-label">Audio File:</span>
+                        <div class="audio-visualizer" data-index="1">
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                        </div>
+                        <audio controls class="audio-player" data-index="1">
+                            <source src="Recording/10J2026.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <span class="recording-label">Translation / Transcription:</span>
+                        <div class="translation-box">
+                            10th of Januray 2026. Today... I... I'm getting ready for an operation. The D-Class offered me to meet them
+                            after a certain incident with the same that I will meet tomorrow. Well, it's been a while since I did a log.
+                            And I think there is much to talk about since. I started to doubt again but this time not on the XI-8 but on
+                            myself. I doubted of my possibility and capability that I could do. And that if I was right in working here, if
+                            it was the correct thing to do what I'm doing. Still, the captain of the XI-8, 'Obsidian', came to talk to me and
+                            reassure me and this for the second time. A second time that I feel too much. After talking, I was given the go to
+                            be apart an operation. An operation where I nearly fucked up everything. I wanted to help to... I wanted to help
+                            the Foundation, Humanity to understand what they still didn't. And I fell in this void where I was nearly tortured.
+                            I was kept against my free will just because I have done something I shouldn't have done and this for humanity. At least
+                            that's what I thought. When I came back, I was not talked to, I was not asked how I was doing. As if... If I was a dead
+                            weight. I don't know what to do. I don't what the right thing is to do. I just want to live and smile but still, it seems
+                            that more as the time advance, it seems im getting down a hole where I cannot climb out of. A void that will take me by the
+                            feet and will kill me doing so. Oh Katrina, I still miss you, you know? Since your death, I keep only thinking of you.
+                            You that stay in my mind without ever leaving. Wth all of this. I found out my brother was dead. I was just making a fake
+                            scenario in my head because of the grief that surrounded me. I didn't want to accept that my brother was dead and that he
+                            just vanished. Zachariah... [INAUDIBLE] Zachariah is no more. I hope tomorrow I would have answer because as mentionned these D-Class
+                            helped me. No, no. These D-Class brought me as I passed out. Later I learned I was Class-A'd. I lost my memories of the last
+                            hours. Not understanding what happened, I asked them and they told me to meet them tomorrow. But still, I have this feeling that
+                            something isn't right. Yes, my hand was melting, but this didn't mean that they cold Class-A me without my reason without wasting
+                            this hour of my life and this... if they listen to the D-Class. They didn't listen someone from the Foundation, they listened to
+                            D-Class to use an amnestic so strong that our memory dissapear. Yet no one questioned why. Only with the only pretext of
+                            saving me. They didn't ask questions. They only did it... Because they were told to. End of Log two.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recording 3 -->
+                <div class="xp-section">
+                    <div class="xp-section-title">Recording of 12th of January 2026</div>
+                    <div class="audio-container">
+                        <span class="recording-label">Audio File:</span>
+                        <div class="audio-visualizer" data-index="2">
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                        </div>
+                        <audio controls class="audio-player" data-index="2">
+                            <source src="Recording/12J2026.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <span class="recording-label">Translation / Transcription:</span>
+                        <div class="translation-box">
+                            12th January 2026. Today, I finally met the D-Class that helped me. To... To not loose my hand, if we say so. I was with D-Class
+                            'Steel' where he told me a lot. and um. [INAUDIBLE] Um, as said in a previous log, I was amnestazied with Class-A because my hand
+                            melting and they listen to the D-Class. But this 11th of January at 9pm I learned that it was because of one of my knowledge that can
+                            cause death. And, this knowledge may be linked to something way bigger than what we think but there is also other information.
+                            He told me that the world might be already overun by Sarkics. But I found it hard to believe, at least I hope not. He also told me
+                            to have faith, not necesarily in religion, to beat the Sarkics. And this happening because of common sense I believe. Something that if
+                            we believe in something, in someone, our mind will be less corrupt by the lies of these monsters. We also have a cult that the D-Class
+                            might name them the "Golden Dawn". This cult, a bit religious I might say, that have multiple D-Class. D-Class that are not necesarily 
+                            against the Foundation, or humanity. But they are with. They know what we don't. They follow what they called "The Codex". What is the 
+                            closest thing to this in Foundation is called the "Ebony Hand". I don't know- A few knowledge was learned on this matter but i'll still 
+                            keep investigating on my side. And... Also... As dumb as it might sound, gods are real. Yes, like Jesus, like Buddha. They are very much 
+                            real. Like the Masquarade, it's a god after all. And um... "Steel" told me to firmly believe in the concept of reincarnation. He didn't 
+                            want to go further but he still told me to keep it in mind. And umm. He also mentionned... No... No... End of log three.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recording 4 -->
+                <div class="xp-section">
+                    <div class="xp-section-title">Recording of 20th of January 2026</div>
+                    <div class="audio-container">
+                        <span class="recording-label">Audio File:</span>
+                        <div class="audio-visualizer" data-index="2">
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                        </div>
+                        <audio controls class="audio-player" data-index="2">
+                            <source src="Recording/20J2026.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <span class="recording-label">Translation / Transcription:</span>
+                        <div class="translation-box">
+                            20th of January 2026. Today, well yesterday, I assisted to the execution of a D-Class named 'Alejandro'. And if I wasn't before well now
+                            I am completly lost in the faith of this Foundation. Lets say... No. 'Bane' followed the order of the Alpha-1 'Node' under the pretext that 
+                            the D-Class was cured from a disease. That if they would die now, they would die forever. A disease? No. From what I understood later on. It
+                            was not a disease. It was... It was a cure. Something that if this "disease" as they call it infects us, we could come back to life, get revived
+                            by using certain material. Well at least with using defibs. And still, they cured this "disease" on the D-Class where they executed him right after.
+                            With no questioning, 'Bane' followed orders and executed a D-Class that did nothing, that just woke up, that just begged for his life to see the
+                            end of his days. Maybe he was apart of the "Golden Dawn"!? Maybe... Maybe... He wanted better for humanity. And voila. A D-Class that's gone. 
+                            After I was called to get questioned as why I didn't follow- why I questioned orders and... I can't call executing someone that did nothing an order.
+                            That just makes me a murderer. Nothing better than these D-Class who are here as well for murders! Why should I follow order that are not ethics?
+                            For me. I devoted my life to these D-Class. I devoted it since I arrived here. For the well being of humanity yet here I was not being able to
+                            stoped someone. We made me understand that orders are meant to be listen to be a good soldier. I do not want to be this soldier! What if it was 'Micro'!?
+                            A D-Class that I was close to!? If it was 'Mute', 'Eggs'! At what point we should kill to live. I am starting to loose more and more faith in this
+                            Foundation. I'm loosing more and more... Reason to follow. I cannot anymore. 'Druid' came to talk to me when I was calming myself at the Aquarium. I was
+                            thinking on how the fishes does not follow rules, orders. And this is when he told me "Do it and consequence will come after". Think of the future! Think
+                            of the future and do it FOR the future! But I cannot do it for the future if the present doesn't change. I need to focus on the present that is what 'Obsidian'
+                            would have wanted... [INAUDIBLE]... No. I cannot focus on the future I have to focus on the present because it's with now that we forge tomorrow and not the
+                            other way around. If I let myself be dragged around a leash like a dog I am not better.. Not better than the D-Class and everything that's happening. I think
+                            I am fighting against something that is way WAY bigger. And I need to know, I cannot stay unaware. Knowledge is power and power is something that need to be sometime
+                            gained. Oh Katrina. If only you were there. If only I could see you. If only you could light the way I am lost. I am crazy. I am small. I don't know.
+                            I would not be a dog for this Foundation. Their need to be standars. Their needs to be ethics. And this... And this... If we don't do it. Humanity will fall.
+                            It reminds me the conversation I had with 'Steel' in which if we do nothing, humanity will be controlled by the Foundation because... No. Humanity... Is the only
+                            one to decide... No, no... This is not how... Humanity is the only one who should lead itself. Not the Foundation, not CI, not the GOC. Only humanity and not a power.
+                            End of log four.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recording 5 -->
+                <div class="xp-section">
+                    <div class="xp-section-title">Recording of 24th of January 2026</div>
+                    <div class="audio-container">
+                        <span class="recording-label">Audio File:</span>
+                        <div class="audio-visualizer" data-index="2">
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                            <div class="vis-bar"></div>
+                        </div>
+                        <audio controls class="audio-player" data-index="2">
+                            <source src="Recording/24J2026.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <span class="recording-label">Translation / Transcription:</span>
+                        <div class="translation-box">
+                            // Small Disclaimer, I misgendered 'Curie' in french calling them him instead of her. Apologies!!
+
+                            24th of January 2026. Tonight was a very eventful day. So I will start from the beginning. It all started by myself being given a medal for my leadership. A medal
+                            that I will wear it proudly. A medal that I should remember for being the fruits of my efforts. After this debrief. After them talking to us, I asked to speak to a
+                            XI-8. To clarify some questions I had concerning my repport of the 11th of January. With this we spoke. And I understood that the world currently is not in real danger
+                            but the Sarkics influence is present in the actual world. The world might not be in an apocalypse scenario yet, but it is a question of time. As for what our work concerns
+                            in term of this... We kill the Sarkics that are too strong but contain the weaker ones like the mimics like they were SCPs. But when 'Curie' told me we where not executioner,
+                            I wasn't okay with this. I argumented that what we were doing with the D-Class were not non-ethics, but was not more humanly understandle than not wanting to kill monsters that
+                            could but the world in grave danger. She told me the famous "Knowledge is power". Like everything in this world, knowledge is power. But I reminded her that there was better
+                            methods for testing. But she told me that we already tried other methods. "We" excluding me. And then when I was speaking to her, an IA arrived. To... Of course talk about these
+                            ethics questions that I had in realtion to the "execution" in this site but more because of what happend with the D-Class 'Alejandro'. I did not talk to the IA. Until I went to the
+                            Aquarium to think a bit of what just happend. I told myself that maybe, I should not do the same mistake that I did with my doubts on the XI-8. I contacted this IA. Of course, I told
+                            him over his personal communication before I had no answer then being called by the HOA to meet her at her office. We talked and discussed. She reminded me that they were ressources
+                            these D-Class. Their memories are erased for um... for the better. To redo their life and it made sense. She cleared my mind perfectly. My doubts erased on the utility of the D-Class.
+                            But on the cloning as well. After this, with more talking, she asked me if I wanted to speak to 'Dionysus' for the situation that happend with the D-Class 'Alejandro'.
+                            Then, is it then that I learned way more then I could imagine. I instead got the visit of Dr. R, that is how we are going to call him. The doctor was part of the ethic committee of the
+                            Foundation. He told me way much then I should now. This D-Class was not executed because of a certain disease was cured but because they drugged him. A drug that was built to try to
+                            contain what they called "The Rot". A disease way worse than anything else in this world. A disease in close link to the Sarkics. With an Sarkicism influence really strong.
+                            From what I understood, we where possibly all already infected here. Before we were considered anomalies but now considered human. We are all infected by this disease, at least I think so.
+                            A disease that we don't know when but Sarkicism influence can happen one day. From what I understood as well was that the same deadly knowledge that 'Steel' told me was linked to the rot. 
+                            I... I must say that I am a bit lost. All of this in a night is leaving me perplex. But at the End of the day, 'Druid' came to congratulate me for speaking out loud against the brutal usage
+                            of force 'Node' used on the D-Class. And... With this he gave me his personal comms.  But... I don't know. Something... What I know now is bigger than myself. Even tho I made a promise.
+                            I don't know. I shouldn't even be supposed to talk about it in this log. Now I entered an infinte void. I cannot climb out, get out. I am linked to this Foundation until my death.
+                            I know too much now... I know too much. En- End of log five.
+                        </div>
+                    </div>
+                </div>
+
+                <a href="Login.html" class="back-link">◄ Return to Main Menu</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (username === 'AAnchor' && password === '4nch0r75!') {
+                // Correct login - start transition
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('loadingScreen').classList.add('active');
+                
+                // Start loading animation
+                let progress = 0;
+                const loadingBar = document.getElementById('loadingBar');
+                const loadingText = document.getElementById('loadingText');
+                const messages = [
+                    'INITIALIZING INTERFACE...',
+                    'LOADING SITE-66 COMPONENT...',
+                    'PREPARING AUDIO MODULES...',
+                    'FINALIZING TASKS...'
+                ];
+                let messageIndex = 0;
+
+                const loadingInterval = setInterval(() => {
+                    progress += Math.random() * 10;
+                    
+                    if (progress >= 100) {
+                        progress = 100;
+                        clearInterval(loadingInterval);
+                        
+                        setTimeout(() => {
+                            // Switch to Windows XP UI
+                            document.body.className = 'xp-body';
+                            document.querySelector('.scanline').style.display = 'none';
+                            document.getElementById('loadingScreen').classList.remove('active');
+                            document.getElementById('xpScreen').classList.add('active');
+                        }, 500);
+                    } else {
+                        // Update message every 25%
+                        const newIndex = Math.floor(progress / 25);
+                        if (newIndex !== messageIndex && newIndex < messages.length) {
+                            messageIndex = newIndex;
+                            loadingText.textContent = messages[messageIndex];
+                        }
+                    }
+                    
+                    loadingBar.style.width = progress + '%';
+                }, 300);
+
+                errorMessage.style.display = 'none';
+            } else {
+                // Wrong credentials
+                errorMessage.style.display = 'block';
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+            }
+        }
+
+        // Allow Enter key to submit
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && document.getElementById('loginScreen').classList.contains('hidden') === false) {
+                checkLogin();
+            }
+        });
+
+        // Audio visualizer animation for multiple players
+        const audioPlayers = document.querySelectorAll('.audio-player');
+        const visualizers = document.querySelectorAll('.audio-visualizer');
+        const animationIntervals = {};
+
+        audioPlayers.forEach((audioPlayer, index) => {
+            const visualizer = visualizers[index];
+            const bars = visualizer.querySelectorAll('.vis-bar');
+
+            audioPlayer.addEventListener('play', function() {
+                visualizer.classList.add('active');
+                
+                // Stop other players
+                audioPlayers.forEach((player, i) => {
+                    if (i !== index && !player.paused) {
+                        player.pause();
+                    }
+                });
+
+                // Animate bars
+                animationIntervals[index] = setInterval(() => {
+                    bars.forEach(bar => {
+                        const height = Math.random() * 40 + 10;
+                        bar.style.height = height + 'px';
+                    });
+                }, 100);
+            });
+
+            audioPlayer.addEventListener('pause', function() {
+                clearInterval(animationIntervals[index]);
+                bars.forEach(bar => {
+                    bar.style.height = '5px';
+                });
+            });
+
+            audioPlayer.addEventListener('ended', function() {
+                clearInterval(animationIntervals[index]);
+                visualizer.classList.remove('active');
+                bars.forEach(bar => {
+                    bar.style.height = '5px';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

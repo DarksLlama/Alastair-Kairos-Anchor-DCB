@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHARACTER THOUGHTS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0e27;
+            font-family: 'Courier New', monospace;
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 255, 65, 0.03) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            border: 2px solid white;
+            padding: 20px;
+            margin-bottom: 30px;
+            background: rgba(20, 20, 20, 0.95);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            text-align: center;
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: 2px solid #ffaa00;
+            color: #ffaa00;
+            padding: 8px 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background: #ffaa00;
+            color: #0a0e27;
+            box-shadow: 0 0 15px #ffaa00;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            letter-spacing: 6px;
+            text-shadow: 0 0 10px white;
+            margin-bottom: 10px;
+        }
+
+        .header .status {
+            font-size: 12px;
+            color: white;
+        }
+
+        .content-box {
+            border: 2px solid white;
+            background: rgba(20, 20, 20, 0.95);
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .content-title {
+            font-size: 24px;
+            letter-spacing: 4px;
+            text-shadow: 0 0 5px white;
+            border-bottom: 2px solid white;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .thought-section {
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid white;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+        }
+
+        .thought-section:hover {
+            border-color: white;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .thought-header {
+            font-size: 20px;
+            color: white;
+            letter-spacing: 3px;
+            text-shadow: 0 0 5px white;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid white;
+        }
+
+        .thought-subtitle {
+            color: white;
+            font-size: 20px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            margin-top: 20px;
+        }
+
+        .thought-content {
+            color: white;
+            font-size: 14px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        @media (max-width: 768px) {
+            .back-button {
+                position: static;
+                transform: none;
+                display: block;
+                width: fit-content;
+                margin: 0 auto 15px;
+            }
+
+            .content-box {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanline"></div>
+    
+    <div class="container">
+        <div class="header">
+            <a href="Login.html" class="back-button">◄ RETURN</a>
+            <h1>⬢ INNER THOUGHTS ⬢</h1>
+            <div class="status">[ MODULE: THOUGHTS | STATUS: ACTIVE ]</div>
+        </div>
+
+        <div class="content-box">
+            <div class="content-title">⟨ PSYCHOLOGICAL PROFILE ⟩</div>
+
+            <!-- HATE -->
+            <div class="thought-section">
+                <div class="thought-header" >⟨ HATE ⟩</div>
+                <div class="thought-subtitle">► SCP</div>
+                <div class="thought-content">
+                    "We should find a way to exterminate ALL of them"
+                </div>
+                
+                <div class="thought-subtitle">► Death</div>
+                <div class="thought-content">
+                    "A disgusting and vile invisble force who only create problem and pain"
+                </div>
+
+                <div class="thought-subtitle">► Sarkics</div>
+                <div class="thought-content">
+                    "The embodiment of death. They bring fears without even being here. They made me a fool out of myself. Hopefully we are working to exterminating them and not containning."
+                </div>
+            </div>
+
+            <!-- DISLIKE -->
+            <div class="thought-section">
+                <div class="thought-header">⟨ DISLIKE ⟩</div>
+                <div class="thought-subtitle">► CI</div>
+                <div class="thought-content">
+                    "Making our life hell when they raid. They are only bad news and have already fallen to the Sarkics"
+                </div>
+
+                <div class="thought-subtitle">► Golden rule</div>
+                <div class="thought-content">
+                    "Waste of time and breath. Barely anyone respect it"
+                </div>
+
+                <div class="thought-subtitle">► Foundation</div>
+                <div class="thought-content">
+                    <pre style="text-decoration: line-through;">"My only source of revenue. Might be able to find my brother back"</pre>
+                    "Risking my life for nothing. Fearing to loose my life or my memory if I quit. Forced to obey."
+                </div>
+
+                <div class="thought-subtitle">► Alpha-1</div>
+                <div class="thought-content">
+                    "You guys reputation are not great due to 'Node' but I am sure there is still good people in there."
+                </div>
+            </div>
+
+            <!-- NEUTRAL -->
+            <div class="thought-section">
+                <div class="thought-header">⟨ NEUTRAL ⟩</div>
+                <div class="thought-subtitle">► NU-7</div>
+                <div class="thought-content">
+                    "Helpful on surface, often making the raid calls preparing us to defend."
+                </div>
+                
+                <div class="thought-subtitle">► E-11</div>
+                <div class="thought-content">
+                    "Helpful recontainning SCP's. Without them we would have to deal with constant SCP's breach"
+                </div>
+
+                <div class="thought-subtitle">► Medical</div>
+                <div class="thought-content">
+                    "Lord, help me get one more. Amazing people in this branch. I will forever have respect for them"
+                </div>
+
+                <div class="thought-subtitle">► Site Staff</div>
+                <div class="thought-content">
+                    "Don't see them often but I know they help in the background"
+                </div>
+
+                <div class="thought-subtitle">► D-Class</div>
+                <div class="thought-content">
+                    <pre style="text-decoration: line-through;">"I was not made for kindergarten and they make me feel like im in some. Some can be chill and/or good but most 
+of them are annoying"</pre>
+                    "Probably the closet human being I've seen in here, if it weren't for the riots and the reason why they are here. I know how you guys feel now. I'll try to help."
+                </div>
+            </div>
+
+            <!-- LIKE -->
+            <div class="thought-section">
+                <div class="thought-header">⟨ LIKE ⟩</div>
+                <div class="thought-subtitle">► XI-8</div>
+                <div class="thought-content">
+                    "Gave them trouble for nothing and yet they still helped me out to clear my doubt. With what I know now too, I will die if they ask me. Maybe I can join them"
+                </div>
+
+                <div class="thought-subtitle">► IA</div>
+                <div class="thought-content">
+                    "The only protectors of ethics around here. Hopefully they don't just act as so."
+                </div>
+
+                <div class="thought-subtitle">► Site-66 aquarium</div>
+                <div class="thought-content">
+                    "The perfect place to relax, think and fall asleep. Helped me think, even if sometime it was too much. Had great talk as well there"
+                </div>
+            </div>
+
+            <!-- ADORE -->
+            <div class="thought-section">
+                <div class="thought-header">⟨ ADORE ⟩</div>
+                <div class="thought-subtitle">► George Anchor</div>
+                <div class="thought-content">
+                    "Might not be my biological father but I love him and ideolise him like he was. Always been there for me"
+                </div>
+
+                <div class="thought-subtitle">► Psychology</div>
+                <div class="thought-content">
+                    "Very interesting field of study. Really like working in that field and would return anytime"
+                </div>
+
+                <div class="thought-subtitle">► Philosophy</div>
+                <div class="thought-content">
+                    "Makes it possible to understand the basis of our thoughts, without it, we would act on emotion"
+                </div>
+
+                <div class="thought-subtitle">► GENSEC</div>
+                <div class="thought-content">
+                    "I just feel like home with everyone in there. I wish I can make it fare in there."
+                </div>
+            </div>
+
+            <!-- LOVE -->
+            <div class="thought-section">
+                <div class="thought-header">⟨ LOVE ⟩</div>
+                <div class="thought-subtitle">► Music</div>
+                <div class="thought-content">
+                    "This is what keeps my sanity when I work. I'll always listen to it unless the situation needs my full attention"
+                </div>
+
+                <div class="thought-subtitle">► Québec</div>
+                <div class="thought-content">
+                    "VIVE LE QUÉBEC LIBRE TABARNAAAAAACK!!!"
+                </div>
+
+                <div class="thought-subtitle">► Poutine</div>
+                <div class="thought-content">
+                    "The best food to exist, period"
+                </div>
+            </div>
+
+            <!-- MISS -->
+            <div class="thought-section">
+                <div class="thought-header">⟨ MISS ⟩</div>
+                <div class="thought-subtitle">► Zachariah Anchor</div>
+                <div class="thought-content">
+                    "I lied to myself all this time. You are dead. I lost my faith that you still are. Sorry brother."
+                </div>
+                
+                <div class="thought-subtitle">► Anne Tremblay</div>
+                <div class="thought-content">
+                    "My adoptive mother. I always felt she cared for us even tho we where not related. Please wake up"
+                </div>
+
+                <div class="thought-subtitle">► Katrina Kosnov</div>
+                <div class="thought-content">
+                    <pre style="text-decoration: line-through;">"My wife, my love, my dear. I wish to be with you forever and leave this place, but I need to find my brother 
+first"</pre>
+                    "Why... Why... Why did we have to seperate. Why did you have to go on that plane. Why did you leave me. Why did you die?"
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

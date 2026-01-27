@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHARACTER ITEMS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0e27;
+            font-family: 'Courier New', monospace;
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 255, 65, 0.03) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            border: 2px solid white;
+            padding: 20px;
+            margin-bottom: 30px;
+            background: rgba(20, 20, 20, 0.95);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            text-align: center;
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: 2px solid #ffaa00;
+            color: #ffaa00;
+            padding: 8px 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background: #ffaa00;
+            color: #0a0e27;
+            box-shadow: 0 0 15px #ffaa00;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            letter-spacing: 6px;
+            text-shadow: 0 0 10px white;
+            margin-bottom: 10px;
+        }
+
+        .header .status {
+            font-size: 12px;
+            color: white;
+        }
+
+        .content-box {
+            border: 2px solid white;
+            background: rgba(20, 20, 20, 0.95);
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .content-title {
+            font-size: 24px;
+            letter-spacing: 4px;
+            text-shadow: 0 0 5px white;
+            border-bottom: 2px solid white;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .item-card {
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid white;
+            padding: 25px;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+
+        .item-card:hover {
+            border-color: white;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .item-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+
+        .item-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .item-image::before {
+            content: '[ ITEM IMAGE ]';
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            opacity: 0.5;
+            position: absolute;
+        }
+
+        .item-image:has(img)::before {
+            display: none;
+        }
+
+        .item-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .item-name {
+            font-size: 22px;
+            color: white;
+            letter-spacing: 3px;
+            text-shadow: 0 0 5px white;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid white;
+        }
+
+        .item-details {
+            margin-bottom: 15px;
+        }
+
+        .item-details .label {
+            color: white;
+            font-size: 12px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .item-details .value {
+            color: white;
+            font-size: 14px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .item-description {
+            color: white;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid white;
+            text-align: justify;
+        }
+
+        @media (max-width: 968px) {
+            .item-content {
+                grid-template-columns: 1fr;
+            }
+
+            .item-image {
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+            .back-button {
+                position: static;
+                transform: none;
+                display: block;
+                width: fit-content;
+                margin: 0 auto 15px;
+            }
+
+            .content-box {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanline"></div>
+    
+    <div class="container">
+        <div class="header">
+            <a href="./Login.html" class="back-button">◄ RETURN</a>
+            <h1>⬢ INVENTORY DATABASE ⬢</h1>
+            <div class="status">[ MODULE: ITEMS | STATUS: ACTIVE ]</div>
+        </div>
+
+        <div class="content-box">
+            <div class="content-title">⟨ PERSONAL POSSESSIONS ⟩</div>
+
+            <!-- WEDDING PHOTO -->
+            <div class="item-card">
+                <div class="item-content">
+                    <div class="item-image">
+                        <img src="img/WP.png" alt="Wedding Photo">
+                    </div>
+                    
+                    <div class="item-info">
+                        <div class="item-name">⟨ WEDDING PHOTO ⟩</div>
+                        
+                        <div class="item-details">
+                            <span class="label">► DESCRIPTION</span>
+                            <div class="value">
+                                A wedding photo of Alastair and Katrina during their wedding. Words are written behind : "Je t'aime mon amour"
+                            </div>
+                        </div>
+
+                        <div class="item-description">
+                            <span class="label" style="display: block; margin-bottom: 8px;">► SIGNIFICANCE</span>
+                            The reminder of his loyalty and the love of his life.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WEDDING RING -->
+            <div class="item-card">
+                <div class="item-content">
+                    <div class="item-image">
+                        <img src="img/RING.png" alt="Wedding Ring"> 
+                    </div>
+                    
+                    <div class="item-info">
+                        <div class="item-name">⟨ WEDDING RING ⟩</div>
+                        
+                        <div class="item-details">
+                            <span class="label">► DESCRIPTION</span>
+                            <div class="value">
+                                A silver ring with a sapphire engraved with a Fleur-De-Lys symbole. The date of their marriage is engraved
+                            </div>
+                        </div>
+
+                        <div class="item-description">
+                            <span class="label" style="display: block; margin-bottom: 8px;">► SIGNIFICANCE</span>
+                            Symbolising the unity with Katrina and his love for Québec
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLACK ROSE -->
+            <div class="item-card">
+                <div class="item-content">
+                    <div class="item-image">
+                       <img src="img/ROSE.png" alt="Black Rose">
+                    </div>
+                    
+                    <div class="item-info">
+                        <div class="item-name">⟨ BLACK ROSE ⟩</div>
+                        
+                        <div class="item-details">
+                            <span class="label">► DESCRIPTION</span>
+                            <div class="value">
+                                A black rose
+                            </div>
+                        </div>
+
+                        <div class="item-description">
+                            <span class="label" style="display: block; margin-bottom: 8px;">► SIGNIFICANCE</span>
+                            A rose that he know Katrina would have like. He is now wearing it next to his Québec pin on his unifrom
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTTLE OF VODKA -->
+            <div class="item-card">
+                <div class="item-content">
+                    <div class="item-info">
+                        <div class="item-name">⟨ BOTTLE OF VODKA ⟩</div>
+                        
+                        <div class="item-details">
+                            <span class="label">► DESCRIPTION</span>
+                            <div class="value">
+                                A bottle of vodka that is 75% full
+                            </div>
+                        </div>
+
+                        <div class="item-description">
+                            <span class="label" style="display: block; margin-bottom: 8px;">► SIGNIFICANCE</span>
+                            Arkian brought it for him when he wasn't feeling so good. Will keep it for important moment
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PACK OF CIGARETTES -->
+            <div class="item-card">
+                <div class="item-content">                    
+                    <div class="item-info">
+                        <div class="item-name">⟨ PACK OF CIGARETTES ⟩</div>
+                        
+                        <div class="item-details">
+                            <span class="label">► DESCRIPTION</span>
+                            <div class="value">
+                                A pack of cigarettes with a lighter. it as 7/20 cigs left
+                            </div>
+                        </div>
+
+                        <div class="item-description">
+                            <span class="label" style="display: block; margin-bottom: 8px;">► SIGNIFICANCE</span>
+                            Something for him to forget when times get hard.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medals-->
+            <div class="item-card">
+                <div class="item-content">                    
+                    <div class="item-info">
+                        <div class="item-name">⟨ MEDALS ⟩</div>
+                        
+                        <div class="item-details">
+                            <span class="label">► DESCRIPTION</span>
+                            <div class="value">
+                                A medal of leadership given by Site Command
+                            </div>
+                        </div>
+
+                        <div class="item-description">
+                            <span class="label" style="display: block; margin-bottom: 8px;">► SIGNIFICANCE</span>
+                            A medal showing his skill in leadership
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PERSONAL COMMUNICATION -->
+            <div class="item-card">
+                <div class="item-content">
+                    <div class="item-info">
+                        <div class="item-name">⟨ PERSONAL COMMUNICATION ⟩</div>
+                        
+                        <div class="item-details">
+                            <span class="label">► DESCRIPTION</span>
+                            <div class="value">
+                                A radio containing his friends personal comms
+                            </div>
+                        </div>
+
+                        <div class="item-description">
+                            <span class="label" style="display: block; margin-bottom: 8px;">► Personnel</span>
+                            <pre> 
+'Alastor'           [Mentor]    | General Security
+'Shadic'            [Shadic]    | General Security
+Gerald White        [Gerald]    | General Security
+Arkian Sean         [Arkian]    | General Security
+Jackeline Worzzic   [Jackeline] | Nu-7 "Hammer Down"
+'Anaphia'           [Silvr]     | Medical
+'Mute'              [Speak]     | Chaos Insurgency (ERASED ON THE 26/01/26)
+'Fae'               [Fae]       | Internal Affair
+'Druid'             [Druid]     | Site Command
+                            </pre>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

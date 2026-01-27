@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHARACTER BACKGROUND</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0e27;
+            font-family: 'Courier New', monospace;
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 255, 65, 0.03) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            border: 2px solid white;
+            padding: 20px;
+            margin-bottom: 30px;
+            background: rgba(20, 20, 20, 0.95);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            text-align: center;
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: 2px solid #ffaa00;
+            color: #ffaa00;
+            padding: 8px 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background: #ffaa00;
+            color: #0a0e27;
+            box-shadow: 0 0 15px #ffaa00;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            letter-spacing: 6px;
+            text-shadow: 0 0 10px white;
+            margin-bottom: 10px;
+        }
+
+        .header .status {
+            font-size: 12px;
+            color: white;
+        }
+
+        .content-box {
+            border: 2px solid white;
+            background: rgba(20, 20, 20, 0.95);
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 22px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 5px white;
+            border-bottom: 2px solid white;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .subsection-title {
+            font-size: 16px;
+            color: white;
+            letter-spacing: 2px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .text-content {
+            line-height: 1.9;
+            font-size: 14px;
+            color: white;
+            text-align: left;
+        }
+
+        .timeline-entry {
+            margin-bottom: 25px;
+            padding-left: 20px;
+            border-left: 2px solid white;
+        }
+
+        .timeline-entry .date {
+            color: white;
+            font-size: 13px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-entry .event {
+            color: white;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .divider {
+            height: 1px;
+            background: white;
+            margin: 35px 0;
+            opacity: 0.3;
+        }
+
+        .info-box {
+            background: rgba(20, 20, 20, 0.95);
+            border: 1px solid white;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .info-box .label {
+            color: white;
+            font-size: 12px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .info-box .content {
+            color: white;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .back-button {
+                position: static;
+                transform: none;
+                display: block;
+                width: fit-content;
+                margin: 0 auto 15px;
+            }
+
+            .content-box {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanline"></div>
+    
+    <div class="container">
+        <div class="header">
+            <a href="Profile.html" class="back-button">◄ RETURN</a>
+            <h1>⬢ CHARACTER BACKGROUND ⬢</h1>
+            <div class="status">[ MODULE: BACKGROUND | STATUS: ACTIVE ]</div>
+        </div>
+
+        <div class="content-box">
+            <div class="section">
+                <div class="section-title">⟨ CHILDHOOD/TEENAGEHOOD ⟩</div>
+                <div class="text-content">
+                    As a newborn, Anchor’s parent were absent. He and his brother, Zachariah, were left abandoned in an orphanage. His two adoptive parents, George Anchor and Anne Tremblay, adopted them when they were around 2. They grew up mostly in Québec before moving to Rimouski when they started going to school.
+                    They grew up in a very loving family and even got higher than average notes in school. Anchor wasn’t as popular like his brother but still managed to gain a small friend group. Once they attended high school, Alastair would meet his future wife, Katrina Kosnov.
+                    During his school life, Alastair always competed against his brother for the best grades. When they couldn’t resolve their rivalry, they settled in a 1V1 game of ice hockey in their backyard. 
+                    Nearing his graduation, Anne and George gave both of their ‘sons’ a gift.
+                    Zachariah chose money, while Anchor a tattoo. He would have a moon that covered his back
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section">
+                <div class="section-title">⟨ EARLY ADULTHOOD ⟩</div>
+                <div class="text-content">
+                    Once Anchor graduated, he went to cégep (education establishment in Québec before university, often towards a more specific domain) where he studied in physics. Katrina would follow him during this time, going in the same domain and cégep.
+                    Once they both graduated, Anchor went in university to get a degree in psychology at Oxford university meanwhile Katrina stayed in Canada and joined the Royal Canadian Air Force.
+                    For the first time in their relationship, they both would not be near each other and face the world’s challenges alone.
+                    Anchor would struggle in his first year into uni, he couldn't focus fully into his class. He would get better grades in his second year and graduated at 24
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section">
+                <div class="section-title">⟨ PRE-FOUNDATION ERA ⟩</div>
+                <div class="text-content">
+                    Anchor first full-time non student job would be as a physicist where he would stay 6 month before realising it was not what he thought. He would get his second job nearly weeks after. 
+                    He joined a psychology cabinet in the Washington state. He would work there for 2 years before getting bad news from his family, his brother disappeared and his mother went into a coma.
+                    He would head back to his parents as soon as he heard the news, taking the first plane he could.
+                    At his arrival, he would encounter his first anomaly, SCP-    -Q. This entity escaped containment and crossed Anchor path. He would have witness all of the containment procedure and when was time to erase his memory he begged to let him remember, if they complied he would join the foundation.
+                    With this new opportunity, maybe Alastair could find his brother, maybe there was other anomalies that could help him understand where his brother could have been
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section">
+                <div class="section-title">⟨ THE QUESTION ⟩</div>
+                <div class="text-content">
+                    One day, while Anchor enjoyed a drink at the local bar, he was approached by an Insurgent. This insurgent name was H. H knew Alastair was more docile than any other foundation, thus meaning more manipulable. H and Anchor talked during the night, taking small drinks here and there. Anchor told H why he joined Foundation and H why he joined CI. The both of them talked and talked until H asked a question:“What makes a thing, an action or decision, good or bad”
+                    Anchor stuttered to answer. He would later leave the bar, keeping this question in his mind. During the upcoming months, he and H talked a lot, without realising that H was trying to change his mindset to make him go against the foundation, to betray his very own existence. 
+                    Higher ups realised the danger and told Anchor that he couldn’t exit the Foundation without someone with him
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section">
+                <div class="section-title">⟨ "PEACEKEEPER" ⟩</div>
+                <div class="text-content">
+                    Following this incident, Anchor became untrustworthy in the eyes of the site command. They would order other E6 personnel to keep a close eye on him for any suspicious activity. 
+                    Now, instead of a peacekeeper, he was a traitor to most of the site eyes. 
+                    People turned down his help, people talked behind his back, people cursed him but when he was in earshot they smiled and respected him. 
+                    Anchor noticed a different vibe, he notice that something was off, like he did something without knowing what.
+                    Alastair would go meet H alone and undercover. When he arrived, H wasn’t there, only his E6 squad. He knew he was done for. When his squad brought him to the director he told Anchor that due to his morals, ethics and friendliness he was removed from the site and transferred to this current site. In reality, both Alastair and the director knew he should have been killed, but the director decided to be merciful
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section">
+                <div class="section-title">⟨ THE PRESENT ⟩</div>
+                <div class="text-content">
+                    Anchor was due to be relocated in this current site. He had to start back from nothing, back as a GENSEC private. No words where spread to anyone. No one knew of his past. This was his chance to be forgiven, to be born anew.
+                    Upon his arrival, Anchor is different, he obeys without question. He looks like he his deprived from any morals or ethics. He showed to be now trustworthy. He looks like he learned his lesson. 
+
+                    The present is now left to be written, to be learned, to be seen.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

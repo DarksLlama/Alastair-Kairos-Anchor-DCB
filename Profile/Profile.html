@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHARACTER PROFILE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0e27;
+            font-family: 'Courier New', monospace;
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 255, 65, 0.03) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            border: 2px solid white;
+            padding: 20px;
+            margin-bottom: 30px;
+            background: rgba(20, 20, 20, 0.95);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            text-align: center;
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: 2px solid #ffaa00;
+            color: #ffaa00;
+            padding: 8px 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background: #ffaa00;
+            color: #0a0e27;
+            box-shadow: 0 0 15px #ffaa00;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            letter-spacing: 6px;
+            text-shadow: 0 0 10px white;
+            margin-bottom: 10px;
+        }
+
+        .header .status {
+            font-size: 12px;
+            color: white;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .profile-sidebar {
+            border: 2px solid white;
+            background: rgba(20, 20, 20, 0.95);
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            height: fit-content;
+        }
+
+        .image-container {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: #0a0e27;
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-container::before {
+            content: '[ INSERT IMAGE HERE ]';
+            color: white;
+            font-size: 14px;
+            text-align: center;
+            opacity: 0.5;
+            position: absolute;
+        }
+
+        .image-container:has(img)::before {
+            display: none;
+        }
+
+        .quick-info {
+            font-size: 14px;
+            line-height: 2;
+        }
+
+        .quick-info .label {
+            color: white;
+            display: inline-block;
+            width: 1000px;
+        }
+
+        .quick-info .value {
+            color: white;
+        }
+
+        .profile-content {
+            border: 2px solid white;
+            background: rgba(20, 20, 20, 0.95);
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 5px white;
+            border-bottom: 1px solid white;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .data-field .label {
+            color: white;
+            font-size: 12px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .data-field .value {
+            color: white;
+            font-size: 14px;
+        }
+
+        .text-content {
+            line-height: 1.8;
+            font-size: 14px;
+            color: white;
+            text-align: justify;
+        }
+
+        .divider {
+            height: 1px;
+            background: white;
+            margin: 25px 0;
+            opacity: 0.3;
+        }
+
+        .background-button {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            padding: 12px 30px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .background-button:hover {
+            background: white;
+            color: #0a0e27;
+            font-weight: bold;
+            box-shadow: 0 0 20px white;
+        }
+
+        @media (max-width: 968px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .back-button {
+                position: static;
+                transform: none;
+                display: block;
+                width: fit-content;
+                margin: 0 auto 15px;
+            }
+
+            .data-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanline"></div>
+    
+    <div class="container">
+        <div class="header">
+            <a href="../Login.html" class="back-button">◄ RETURN</a>
+            <h1>⬢ CHARACTER PROFILE ⬢</h1>
+            <div class="status">[ MODULE: PROFILE | STATUS: ACTIVE ]</div>
+        </div>
+
+        <div class="main-content">
+            <div class="profile-sidebar">
+                <div class="image-container">
+                    <img src="../img/Alastair Anchor.png" alt="Character Portrait"> 
+                </div>
+
+                <div class="quick-info">
+                    <div><span class="label">"Kairos" in his old E6 uniform</span> <span class="value"></span></div>
+                </div>
+            </div>
+
+            <div class="profile-content">
+                <div class="section">
+                    <div class="section-title">⟨ DESCRIPTION ⟩</div>
+                    <div class="data-grid">
+                        <div class="data-field">
+                            <span class="label">► NAME</span>
+                            <span class="value">Alastair "Kairos" Anchor</span>
+                        </div>
+                        <div class="data-field">
+                            <span class="label">► AGE</span>
+                            <span class="value">28</span>
+                        </div>
+                        <div class="data-field">
+                            <span class="label">► NATIONALITY</span>
+                            <span class="value">Canadian</span>
+                        </div>
+                        <div class="data-field">
+                            <span class="label">► SEX</span>
+                            <span class="value">Male</span>
+                        </div>
+                        <div class="data-field">
+                            <span class="label">► PLACE OF BIRTH</span>
+                            <span class="value">Québec, Québec, Canada</span>
+                        </div>
+                        <div class="data-field">
+                            <span class="label">► DATE OF BIRTH</span>
+                            <span class="value">24/October/1997</span>
+                        </div>
+                        <div class="data-field">
+                            <span class="label">► RELATIONSHIP STATUS</span>
+                            <span class="value">Widower</span>
+                        </div>
+                        <div class="data-field">
+                            <span class="label">► CLEARANCE</span>
+                            <span class="value">Two (2)</span>
+                        </div>
+                        <div class="data-field">
+                            <span class="label">► CURRENT OCCUPATION</span>
+                            <span class="value">GENSEC Master Sergeant | Warden Lead</span>
+                        </div>
+                        <div class="data-field">
+                            <span class="label">► TRAINED FOR</span>
+                            <span class="value">Vanguard, Warden</span>
+                        </div>
+                        <div class="data-field">
+                            <span class="label">► PAST OCCUPATION</span>
+                            <span class="value">Epsilon-6 sergeant | Physicist | Psychologist</span>
+                        </div>
+                    </div>
+
+
+                <div class="divider"></div>
+
+                <div class="section">
+                    <div class="section-title">⟨ PHYSICAL DESCRIPTION ⟩</div>
+                    
+                    <div class="data-grid">
+                        <div class="data-field">
+                            <span class="label">► HEIGHT</span>
+                            <span class="value">6'3ft | 192cm</span>
+                        </div>
+                        <div class="data-field">
+                            <span class="label">► WEIGHT</span>
+                            <span class="value">200lb | 90kg</span>
+                        </div>
+                        <div class="data-field">
+                            <span class="label">► BUILD</span>
+                            <span class="value">Muscular</span>
+                        </div>
+                        <div class="data-field">
+                            <span class="label">► EYE COLOR</span>
+                            <span class="value">Blue (cyan)</span>
+                        </div>
+                        <div class="data-field">
+                            <span class="label">► HAIR COLOR</span>
+                            <span class="value">Blonde (dyed)</span>
+                        </div>
+                        <div class="data-field">
+                            <span class="label">► SKIN TONE</span>
+                            <span class="value">White</span>
+                        </div>
+                        <div class="data-field">
+                            <span class="label">► DISTINGUISHING MARKS</span>
+                            <span class="value">A monocle on hie left eye du to poor eyesight |</span>
+                            <span class="value">Ear ring given by his mother on his wedding |</span>
+                            <span class="value">Short hair since he joined foundation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="section">
+                    <div class="section-title">⟨ MEDICAL DESCRIPTION ⟩</div>
+                    
+                    <div class="data-grid">
+                        <div class="data-field">
+                            <span class="label">► BLOOD TYPE</span>
+                            <span class="value">O-</span>
+                        </div>
+                        <div class="data-field">
+                            <span class="label">► WOUNDS</span>
+                            <span class="value">None</span>
+                        </div>
+                        <div class="data-field">
+                            <span class="label">► MEDICAL CONDITIONS</span>
+                            <span class="value">Metal plate on the left leg | Skull injury</span>
+                        </div>
+                        <div class="data-field">
+                            <span class="label">► MENTAL DIAGNOSIS</span>
+                            <span class="value">None</span>
+                        </div>
+                    </div>
+
+                    <div class="text-content" style="margin-top: 15px;">
+                        <span class="label" style="display: block; margin-bottom: 10px;">► ADDITIONAL MEDICAL NOTES</span>
+                        "Kairos" got a metal plate on his left leg due to a bone injury related to a grenade impact. Injury on his skull healed over time with no surgetry
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div style="text-align: center;">
+                    <a href="History.html" class="background-button">► VIEW FULL BACKGROUND</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

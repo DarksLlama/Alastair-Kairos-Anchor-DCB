@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CI RELATIONS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0e27;
+            font-family: 'Courier New', monospace;
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 255, 65, 0.03) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            border: 2px solid white;
+            padding: 20px;
+            margin-bottom: 30px;
+            background: rgba(20, 20, 20, 0.95);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            text-align: center;
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: 2px solid #ffaa00;
+            color: #ffaa00;
+            padding: 8px 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background: #ffaa00;
+            color: #0a0e27;
+            box-shadow: 0 0 15px #ffaa00;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            letter-spacing: 6px;
+            text-shadow: 0 0 10px white;
+            margin-bottom: 10px;
+        }
+
+        .header .status {
+            font-size: 12px;
+            color: white;
+        }
+
+        .department-section {
+            border: 2px solid white;
+            background: rgba(20, 20, 20, 0.95);
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .department-header {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid white;
+        }
+
+        .department-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .department-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .department-image::before {
+            content: '[ DEPT LOGO ]';
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            opacity: 0.5;
+            position: absolute;
+        }
+
+        .department-image:has(img)::before {
+            display: none;
+        }
+
+        .department-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .department-title {
+            font-size: 24px;
+            letter-spacing: 4px;
+            text-shadow: 0 0 5px white;
+            margin-bottom: 20px;
+        }
+
+        .department-description {
+            color: white;
+            font-size: 14px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .personnel-title {
+            font-size: 18px;
+            color: white;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid white;
+        }
+
+        .personnel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .personnel-card {
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid white;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .personnel-card:hover {
+            border-color: white;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .personnel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid white;
+        }
+
+        .personnel-name {
+            font-size: 16px;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        .personnel-rank {
+            font-size: 11px;
+            color: white;
+            padding: 4px 10px;
+            border: 1px solid white;
+        }
+
+        .personnel-info {
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        .personnel-info .label {
+            color: white;
+            display: inline-block;
+            width: 110px;
+        }
+
+        .personnel-info .value {
+            color: white;
+        }
+
+        @media (max-width: 968px) {
+            .department-header {
+                grid-template-columns: 1fr;
+            }
+
+            .department-image {
+                max-width: 250px;
+                margin: 0 auto;
+            }
+
+            .back-button {
+                position: static;
+                transform: none;
+                display: block;
+                width: fit-content;
+                margin: 0 auto 15px;
+            }
+
+            .personnel-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanline"></div>
+    
+    <div class="container">
+        <div class="header">
+            <a href="Menu.html" class="back-button">◄ RETURN</a>
+            <h1>⬢ CHAOS INSURGENCY RELATIONS ⬢</h1>
+            <div class="status">[ FACTION: CI | STATUS: ACTIVE ]</div>
+        </div>
+
+        <!-- COMMAND -->
+        <div class="department-section">
+            <div class="department-header">
+                <div class="department-image">
+                    <img src="../img/CI.png" alt="CI emblem"> 
+                </div>
+                <div class="department-info">
+                    <div class="department-title">⟨ Chaos Insurgency ⟩</div>
+                </div>
+            </div>
+
+            <div class="personnel-title">► PERSONNEL</div>
+            <div class="personnel-grid">
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">'Mute'</div>
+                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">Sergeant</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: yellowgreen;">Like</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"I hope everything is going good over in CI place. I wish I could hear you speak again. Please stay alive until our next meeting. I am glad to hear from you again, truly. I see that everything is good and I shall make sure that we could talk more again."</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">LAST CONTACT:</span>
+                        <span class="value">24th Jan 2026</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OPERATIVES -->
+        <div class="department-section">
+            <div class="department-header">
+                <div class="department-image">
+                    <img src="../img/DN.png" alt="Dreadnaught emblem"> 
+                </div>
+                <div class="department-info">
+                    <div class="department-title">⟨ Dreadnaught ⟩</div>
+                    <div class="department-description">
+                        No interaction entered
+                    </div>
+                </div>
+            </div>
+
+            <div class="personnel-title">► PERSONNEL</div>
+        </div>
+
+        <!-- INFILTRATORS -->
+        <div class="department-section">
+            <div class="department-header">
+                <div class="department-image">
+                    <img src="../img/REV.png" alt="Revenant emblem"> 
+                </div>
+                <div class="department-info">
+                    <div class="department-title">⟨ Revenant ⟩</div>
+                    <div class="department-description">
+                        No interactions entered
+                    </div>
+                </div>
+            </div>
+
+            <div class="personnel-title">► PERSONNEL</div>
+        </div>
+    </div>
+</body>
+</html>
