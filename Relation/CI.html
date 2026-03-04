@@ -14,7 +14,7 @@
         body {
             background: #0a0e27;
             font-family: 'Courier New', monospace;
-            color: white;
+            color: #0088ff;
             min-height: 100vh;
             padding: 20px;
         }
@@ -49,7 +49,7 @@
         }
 
         .header {
-            border: 2px solid white;
+            border: 2px solid #0088ff;
             padding: 20px;
             margin-bottom: 30px;
             background: rgba(20, 20, 20, 0.95);
@@ -64,8 +64,8 @@
             top: 50%;
             transform: translateY(-50%);
             background: transparent;
-            border: 2px solid #ffaa00;
-            color: #ffaa00;
+            border: 2px solid azure;
+            color: azure;
             padding: 8px 20px;
             font-family: 'Courier New', monospace;
             font-size: 14px;
@@ -77,25 +77,25 @@
         }
 
         .back-button:hover {
-            background: #ffaa00;
+            background: azure;
             color: #0a0e27;
-            box-shadow: 0 0 15px #ffaa00;
+            box-shadow: 0 0 15px azure;
         }
 
         .header h1 {
             font-size: 28px;
             letter-spacing: 6px;
-            text-shadow: 0 0 10px white;
+            text-shadow: 0 0 10px #0088ff;
             margin-bottom: 10px;
         }
 
         .header .status {
             font-size: 12px;
-            color: white;
+            color: azure;
         }
 
         .department-section {
-            border: 2px solid white;
+            border: 2px solid green;
             background: rgba(20, 20, 20, 0.95);
             padding: 30px;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
@@ -108,7 +108,7 @@
             gap: 25px;
             margin-bottom: 30px;
             padding-bottom: 25px;
-            border-bottom: 2px solid white;
+            border-bottom: 2px solid green;
         }
 
         .department-image {
@@ -131,7 +131,7 @@
 
         .department-image::before {
             content: '[ DEPT LOGO ]';
-            color: white;
+            color: azure;
             font-size: 12px;
             text-align: center;
             opacity: 0.5;
@@ -151,12 +151,12 @@
         .department-title {
             font-size: 24px;
             letter-spacing: 4px;
-            text-shadow: 0 0 5px white;
+            text-shadow: 0 0 5px azure;
             margin-bottom: 20px;
         }
 
         .department-description {
-            color: white;
+            color: azure;
             font-size: 14px;
             line-height: 1.8;
             text-align: justify;
@@ -164,11 +164,11 @@
 
         .personnel-title {
             font-size: 18px;
-            color: white;
+            color: azure;
             letter-spacing: 3px;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 1px solid white;
+            border-bottom: 1px solid azure;
         }
 
         .personnel-grid {
@@ -179,13 +179,13 @@
 
         .personnel-card {
             background: rgba(20, 20, 20, 0.95);
-            border: 2px solid white;
+            border: 2px solid azure;
             padding: 20px;
             transition: all 0.3s;
         }
 
         .personnel-card:hover {
-            border-color: white;
+            border-color: azure;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
 
@@ -195,20 +195,20 @@
             align-items: center;
             margin-bottom: 15px;
             padding-bottom: 12px;
-            border-bottom: 1px solid white;
+            border-bottom: 1px solid azure;
         }
 
         .personnel-name {
             font-size: 16px;
-            color: white;
+            color: azure;
             letter-spacing: 1px;
         }
 
         .personnel-rank {
             font-size: 11px;
-            color: white;
+            color: azure;
             padding: 4px 10px;
-            border: 1px solid white;
+            border: 1px solid azure;
         }
 
         .personnel-info {
@@ -217,13 +217,13 @@
         }
 
         .personnel-info .label {
-            color: white;
+            color: azure;
             display: inline-block;
             width: 110px;
         }
 
         .personnel-info .value {
-            color: white;
+            color: azure;
         }
 
         @media (max-width: 968px) {
@@ -267,13 +267,13 @@
                     <img src="../img/CI.png" alt="CI emblem"> 
                 </div>
                 <div class="department-info">
-                    <div class="department-title">⟨ Chaos Insurgency ⟩</div>
+                    <div class="department-title" style="color: green; text-shadow: 0 0 20px green;">⟨ Chaos Insurgency ⟩</div>
                 </div>
             </div>
 
             <div class="personnel-title">► PERSONNEL</div>
-            <div class="personnel-grid">
-                <div class="personnel-card">
+            <div class="personnel-grid" >
+                <div class="personnel-card" style="border: 2px solid green;">
                     <div class="personnel-header">
                         <div class="personnel-name">'Mute'</div>
                         <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
@@ -305,7 +305,7 @@
                     <img src="../img/DN.png" alt="Dreadnaught emblem"> 
                 </div>
                 <div class="department-info">
-                    <div class="department-title">⟨ Dreadnaught ⟩</div>
+                    <div class="department-title" style="color: green; text-shadow: 0 0 20px green;">⟨ Dreadnaught ⟩</div>
                     <div class="department-description">
                         No interaction entered
                     </div>
@@ -322,7 +322,7 @@
                     <img src="../img/REV.png" alt="Revenant emblem"> 
                 </div>
                 <div class="department-info">
-                    <div class="department-title">⟨ Revenant ⟩</div>
+                    <div class="department-title" style="color: green; text-shadow: 0 0 20px green;">⟨ Revenant ⟩</div>
                     <div class="department-description">
                         No interactions entered
                     </div>

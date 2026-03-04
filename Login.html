@@ -14,7 +14,7 @@
         body {
             background: #0a0e27;
             font-family: 'Courier New', monospace;
-            color: white;
+            color: #0088ff;
             overflow: hidden;
             height: 100vh;
             display: flex;
@@ -45,7 +45,7 @@
             width: 90%;
             max-width: 700px;
             background: rgba(20, 20, 20, 0.95);
-            border: 2px solid white;
+            border: 2px solid #0088ff;
             border-radius: 8px;
             box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
             padding: 40px;
@@ -59,13 +59,13 @@
         .loading-title {
             font-size: 24px;
             letter-spacing: 4px;
-            text-shadow: 0 0 10px white;
+            text-shadow: 0 0 10px #0088ff;
             margin-bottom: 30px;
         }
 
         .file-name {
             font-size: 18px;
-            color: white;
+            color: azure;
             margin-bottom: 40px;
             letter-spacing: 2px;
         }
@@ -74,7 +74,7 @@
             width: 100%;
             height: 30px;
             background: #0a0e27;
-            border: 2px solid white;
+            border: 2px solid #0088ff;
             margin-bottom: 20px;
             position: relative;
             overflow: hidden;
@@ -82,10 +82,10 @@
 
         .loading-bar {
             height: 100%;
-            background: linear-gradient(90deg, white, white);
+            background: linear-gradient(90deg, #0088ff, #0088ff);
             width: 0%;
             transition: width 0.3s;
-            box-shadow: 0 0 20px white;
+            box-shadow: 0 0 20px #0088ff;
         }
 
         .loading-percentage {
@@ -96,7 +96,7 @@
         .loading-text {
             font-size: 14px;
             line-height: 2;
-            color: white;
+            color: azure;
         }
 
         .loading-text div {
@@ -114,7 +114,7 @@
             width: 90%;
             max-width: 900px;
             background: rgba(20, 20, 20, 0.95);
-            border: 2px solid white;
+            border: 2px solid #0088ff;
             border-radius: 8px;
             box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
             padding: 40px;
@@ -138,7 +138,7 @@
 
         .menu-header {
             text-align: center;
-            border-bottom: 2px solid white;
+            border-bottom: 2px solid #0088ff;
             padding-bottom: 20px;
             margin-bottom: 40px;
         }
@@ -146,13 +146,13 @@
         .menu-header h1 {
             font-size: 28px;
             letter-spacing: 6px;
-            text-shadow: 0 0 10px white;
+            text-shadow: 0 0 10px #0088ff;
             margin-bottom: 10px;
         }
 
         .menu-header .subtitle {
             font-size: 14px;
-            color: white;
+            color: #0088ff;
             letter-spacing: 2px;
         }
 
@@ -171,8 +171,8 @@
 
         .menu-button {
             background: transparent;
-            border: 2px solid white;
-            color: white;
+            border: 2px solid #0088ff;
+            color: #0088ff;
             padding: 25px;
             font-family: 'Courier New', monospace;
             font-size: 18px;
@@ -193,7 +193,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: white;
+            background: #0088ff;
             transition: left 0.3s;
             z-index: -1;
         }
@@ -203,17 +203,17 @@
         }
 
         .menu-button:hover {
-            color: #000000;
+            color: azure;
             font-weight: bold;
-            box-shadow: 0 0 20px white;
+            box-shadow: 0 0 20px #0088ff;
             transform: translateY(-3px);
         }
 
         .menu-footer {
             text-align: center;
             font-size: 11px;
-            color: white;
-            border-top: 1px solid white;
+            color: azure;
+            border-top: 1px solid #0088ff;
             padding-top: 20px;
         }
 
@@ -230,7 +230,7 @@
     <!-- LOADING SCREEN -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-title">⬢ ACCESSING DATABASE ⬢</div>
-        <div class="file-name">FILE: C:/S_66/GENSEC/NCO/KAIROS</div>
+        <div class="file-name">FILE: C:/S_66/GENSEC/CO/KAIROS</div>
         
         <div class="loading-bar-container">
             <div class="loading-bar" id="loadingBar"></div>
@@ -239,9 +239,9 @@
         <div class="loading-percentage" id="loadingPercentage">0%</div>
         
         <div class="loading-text" id="loadingText">
-            <div style="animation-delay: 0.5s;">> Accessing C:/S_66/GENSEC/NCO/KAIROS...</div>
-            <div style="animation-delay: 1.5s;">> Level 2 scan starting...</div>
-            <div style="animation-delay: 2.5s;">> Level 2 scan success...</div>
+            <div style="animation-delay: 0.5s;">> Accessing C:/S_66/GENSEC/CO/KAIROS...</div>
+            <div style="animation-delay: 1.5s;">> Level 3 scan starting...</div>
+            <div style="animation-delay: 2.5s;">> Level 3 scan success...</div>
             <div style="animation-delay: 3.5s;">> Anchor memetic activated...</div>
         </div>
     </div>
@@ -249,8 +249,8 @@
     <!-- MENU SCREEN -->
     <div class="menu-screen" id="menuScreen">
         <div class="menu-header">
-            <h1>⬢ # DATABASE ⬢</h1>
-            <div class="subtitle">[ SELECT MODULE TO ACCESS ]</div>
+            <h1>⬢ DATABASE ⬢</h1>
+            <div class="subtitle" style="font-size: larger; font-family:'Times New Roman', Times, serif; color: azure;">[ "For Humanity" ]</div>
         </div>
 
         <div class="menu-grid">

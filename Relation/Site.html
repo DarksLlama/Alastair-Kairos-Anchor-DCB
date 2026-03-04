@@ -14,7 +14,7 @@
         body {
             background: #0a0e27;
             font-family: 'Courier New', monospace;
-            color: white;
+            color: #0088ff;
             min-height: 100vh;
             padding: 20px;
         }
@@ -49,7 +49,7 @@
         }
 
         .header {
-            border: 2px solid white;
+            border: 2px solid #0088ff;
             padding: 20px;
             margin-bottom: 30px;
             background: rgba(20, 20, 20, 0.95);
@@ -64,8 +64,8 @@
             top: 50%;
             transform: translateY(-50%);
             background: transparent;
-            border: 2px solid #ffaa00;
-            color: #ffaa00;
+            border: 2px solid azure;
+            color: azure;
             padding: 8px 20px;
             font-family: 'Courier New', monospace;
             font-size: 14px;
@@ -77,25 +77,25 @@
         }
 
         .back-button:hover {
-            background: #ffaa00;
+            background: azure;
             color: #0a0e27;
-            box-shadow: 0 0 15px #ffaa00;
+            box-shadow: 0 0 15px azure;
         }
 
         .header h1 {
             font-size: 28px;
             letter-spacing: 6px;
-            text-shadow: 0 0 10px white;
+            text-shadow: 0 0 10px #0088ff;
             margin-bottom: 10px;
         }
 
         .header .status {
             font-size: 12px;
-            color: white;
+            color: azure;
         }
 
         .department-section {
-            border: 2px solid white;
+            border: 2px solid #0088ff;
             background: rgba(20, 20, 20, 0.95);
             padding: 30px;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
@@ -108,14 +108,14 @@
             gap: 25px;
             margin-bottom: 30px;
             padding-bottom: 25px;
-            border-bottom: 2px solid white;
+            border-bottom: 2px solid #0088ff;
         }
 
         .department-image {
             width: 100%;
             aspect-ratio: 1;
             background: rgba(20, 20, 20, 0.95);
-            border: 2px solid white;
+            border: 2px solid azure;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -131,7 +131,7 @@
 
         .department-image::before {
             content: '[ DEPT LOGO ]';
-            color: white;
+            color: azure;
             font-size: 12px;
             text-align: center;
             opacity: 0.5;
@@ -151,12 +151,12 @@
         .department-title {
             font-size: 24px;
             letter-spacing: 4px;
-            text-shadow: 0 0 5px white;
+            text-shadow: 0 0 5px #0088ff;
             margin-bottom: 20px;
         }
 
         .department-description {
-            color: white;
+            color: azure;
             font-size: 14px;
             line-height: 1.8;
             text-align: justify;
@@ -164,11 +164,11 @@
 
         .personnel-title {
             font-size: 18px;
-            color: white;
+            color: azure;
             letter-spacing: 3px;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 1px solid white;
+            border-bottom: 1px solid azure;
         }
 
         .personnel-grid {
@@ -179,13 +179,13 @@
 
         .personnel-card {
             background: rgba(20, 20, 20, 0.95);
-            border: 2px solid white;
+            border: 2px solid #0088ff;
             padding: 20px;
             transition: all 0.3s;
         }
 
         .personnel-card:hover {
-            border-color: white;
+            border-color: azure;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
 
@@ -195,20 +195,20 @@
             align-items: center;
             margin-bottom: 15px;
             padding-bottom: 12px;
-            border-bottom: 1px solid white;
+            border-bottom: 1px solid azure;
         }
 
         .personnel-name {
             font-size: 16px;
-            color: white;
+            color: azure;
             letter-spacing: 1px;
         }
 
         .personnel-rank {
             font-size: 11px;
-            color: white;
+            color: azure;
             padding: 4px 10px;
-            border: 1px solid white;
+            border: 1px solid azure;
         }
 
         .personnel-info {
@@ -217,13 +217,13 @@
         }
 
         .personnel-info .label {
-            color: white;
+            color: azure;
             display: inline-block;
             width: 90px;
         }
 
         .personnel-info .value {
-            color: white;
+            color: azure;
         }
 
 
@@ -289,7 +289,10 @@
                     </div>
                     <div class="personnel-info">
                         <span class="label">THOUGHTS:</span>
-                        <span class="value">"A great Caotain. I know not do doubt is order. Tho I think he knows the same thing I do, but I made a promise"</span>
+                        <div></div>
+                        <span class="value">"A great Caotain. I know not do doubt is order. Tho I think he knows the same thing I do, but I made a promise."</span>
+                        <div></div>
+                        <span class="value">[NEW]: "So you are like the rest, you see life as ressources..."</span>
                     </div>
                 </div>
                 
@@ -308,6 +311,7 @@
                     </div>
                     <div class="personnel-info">
                         <span class="label">THOUGHTS:</span>
+                        <div></div>
                         <span class="value">"A great XO. wonderful leader that I will follow until I die. I would never question orders from you"</span>
                     </div>
                 </div>
@@ -315,7 +319,7 @@
                 <div class="personnel-card">
                     <div class="personnel-header">
                         <div class="personnel-name">'Alastor'</div>
-                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                        <div class="personnel-rank" style="color: maroon;">Deceased</div>
                     </div>
                     <div class="personnel-info">
                         <span class="label">POSITION:</span>
@@ -323,18 +327,41 @@
                     </div>
                     <div class="personnel-info">
                         <span class="label">RELATION:</span>
-                        <span class="value" style="color: yellowgreen;">Like</span>
+                        <span class="value" style="color: pink;">Mentor</span>
                     </div>
                     <div class="personnel-info">
                         <span class="label">THOUGHTS:</span>
+                        <div></div>
                         <span class="value">"My trainer and my main promoter. You are both my mentor and my close friend."</span>
+                        <div></div>
+                        <span class="value">[NEW]: "Radix is a dead man. I will avenge you, I will... I... I promise"</span>
+                    </div>
+                </div>
+
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">'Spade'</div>
+                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">First Lieutenant</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: yellow;">Neutral</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <div></div>
+                        <span class="value">"You are the replacement of my mentor. I don't know just yet about you..."</span>
                     </div>
                 </div>
 
                 <div class="personnel-card">
                     <div class="personnel-header">
                         <div class="personnel-name">Arkian Sean</div>
-                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                        <div class="personnel-rank" style="color: maroon;">Deceased</div>
                     </div>
                     <div class="personnel-info">
                         <span class="label">POSITION:</span>
@@ -346,7 +373,10 @@
                     </div>
                     <div class="personnel-info">
                         <span class="label">THOUGHTS:</span>
+                        <div></div>
                         <span class="value">"The only person left near a brother to me. I would die for you. Please dont go."</span>
+                        <div></div>
+                        <span class="value">[NEW]: "You as well now... Caliss... I don't know anymore... Prend soin mon ami"</span>
                     </div>
                 </div>
 
@@ -357,7 +387,7 @@
                     </div>
                     <div class="personnel-info">
                         <span class="label">POSITION:</span>
-                        <span class="value">Sergeant First Class</span>
+                        <span class="value">Master Sergeant</span>
                     </div>
                     <div class="personnel-info">
                         <span class="label">RELATION:</span>
@@ -368,6 +398,25 @@
                         <span class="value">"An honest and hard working guy. I have much respect for his hard work. Something is off. You are hiding your past. Why?"</span>
                     </div>
                 </div>
+                
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-name">Kirby Serrano</div>
+                        <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">POSITION:</span>
+                        <span class="value">Sergeant</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">RELATION:</span>
+                        <span class="value" style="color: yellowgreen;">Like</span>
+                    </div>
+                    <div class="personnel-info">
+                        <span class="label">THOUGHTS:</span>
+                        <span class="value">"My Co-Lead. You show promise. Make sure you keep the D-Class safe. They are not ressources as they say"</span>
+                    </div>
+                </div>
 
                 <div class="personnel-card">
                     <div class="personnel-header">
@@ -376,7 +425,7 @@
                     </div>
                     <div class="personnel-info">
                         <span class="label">POSITION:</span>
-                        <span class="value">Lance Corporal</span>
+                        <span class="value">Corporal</span>
                     </div>
                     <div class="personnel-info">
                         <span class="label">RELATION:</span>
@@ -387,23 +436,24 @@
                         <span class="value">"Thank you. Thank you for taking the time to talk to me. I will never forget that. Even if we end up against eachother."</span>
                     </div>
                 </div>
+
             </div>
         </div>
 
         <!-- MEDICAL DEPARTMENT -->
-        <div class="department-section">
-            <div class="department-header">
+        <div class="department-section" style="border: maroon 2px solid;">
+            <div class="department-header" style="border-bottom: 2px solid maroon;">
                 <div class="department-image">
                     <img src="../img/Medics.png" alt="Medical Department"> 
                 </div>
                 <div class="department-info">
-                    <div class="department-title">⟨ MEDICAL DEPARTMENT ⟩</div>
+                    <div class="department-title" style="color: maroon; text-shadow: 0 0 20px maroon;">⟨ MEDICAL DEPARTMENT ⟩</div>
                 </div>
             </div>
 
             <div class="personnel-title">► PERSONNEL</div>
             <div class="personnel-grid">
-                <div class="personnel-card">
+                <div class="personnel-card" style="border: 2px solid maroon;">
                     <div class="personnel-header">
                         <div class="personnel-name">Sébastien Leblanc</div>
                         <div class="personnel-rank" style="color: maroon;">Deceased</div>
@@ -418,11 +468,12 @@
                     </div>
                     <div class="personnel-info">
                         <span class="label">THOUGHTS:</span>
+                        <div></div>
                         <span class="value">"You where one of the only other Québécois around here... Yet you've fallen to the hands of the Sarkics and you paid the price"</span>
                     </div>
                 </div>
 
-                <div class="personnel-card">
+                <div class="personnel-card" style="border: 2px solid maroon;">
                     <div class="personnel-header">
                         <div class="personnel-name">'Anaphia'</div>
                         <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
@@ -437,11 +488,12 @@
                     </div>
                     <div class="personnel-info">
                         <span class="label">THOUGHTS:</span>
+                        <div></div>
                         <span class="value">"You lost so much yet you keep on going. Man I wish I could have your mindset. I will always be there if you need me and I'll keep fighting."</span>
                     </div>
                 </div>
 
-                <div class="personnel-card">
+                <div class="personnel-card" style="border: 2px solid maroon;">
                     <div class="personnel-header">
                         <div class="personnel-name">'Bane'</div>
                         <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
@@ -456,19 +508,21 @@
                     </div>
                     <div class="personnel-info">
                         <span class="label">THOUGHTS:</span>
+                        <div></div>
                         <span class="value">"You executed a man who was cured. Even if it was an order, you shouldn't have done it. Don't follow blindely."</span>
                     </div>
                 </div>
+            </div>
         </div>
 
         <!-- E-11 'NINE TAIL FOX' -->
-        <div class="department-section">
-            <div class="department-header">
+        <div class="department-section" style="border: 2px solid orange;">
+            <div class="department-header" style="border-bottom: 2px solid orange;">
                 <div class="department-image">
                     <img src="../img/NTF.png" alt="E-11"> 
                 </div>
                 <div class="department-info">
-                    <div class="department-title">⟨ E-11 'NINE TAIL FOX' ⟩</div>
+                    <div class="department-title" style="color: orange; text-shadow: 0 0 20px orange;">⟨ E-11 'NINE TAIL FOX' ⟩</div>
                     <div class="department-description">
                         No interaction entered
                     </div>
@@ -482,19 +536,19 @@
         </div>
 
         <!-- NU-7 'HAMMER DOWN' -->
-        <div class="department-section">
-            <div class="department-header">
+        <div class="department-section" style="border: 2px solid orangered;"> 
+            <div class="department-header" style="border-bottom: 2px solid orangered;">
                 <div class="department-image">
                     <img src="../img/N7.png" alt="NU-7"> 
                 </div>
-                <div class="department-info">
+                <div class="department-info" style="color: orangered; text-shadow: 0 0 20px orangered;">
                     <div class="department-title">⟨ NU-7 'HAMMER DOWN' ⟩</div>
                 </div>
             </div>
 
             <div class="personnel-title">► PERSONNEL</div>
             <div class="personnel-grid">
-                <div class="personnel-card">
+                <div class="personnel-card" style="border: 2px solid orangered;">
                         <div class="personnel-header">
                             <div class="personnel-name">Jackeline Worzzic</div>
                             <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
@@ -509,17 +563,18 @@
                         </div>
                         <div class="personnel-info">
                             <span class="label">THOUGHTS:</span>
+                            <div></div>
                             <span class="value">"One of the rare D-Class who made it into foundation. A great helper and talker. She worries about the right thing"</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        
 
         <!-- SITE STAFF -->
-        <div class="department-section">
-            <div class="department-header">
-                <div class="department-info">
+        <div class="department-section" style="border: 2px solid cyan;">
+            <div class="department-header" style="border-bottom: 2px solid cyan;">
+                <div class="department-info" style="color: cyan; text-shadow: 0 0 20px cyan;">
                     <div class="department-title">⟨ SITE STAFF ⟩</div>
                     <div class="department-description">
                         No interaction entered
@@ -531,19 +586,19 @@
         </div>
 
         <!-- INTERNAL AFFAIR -->
-        <div class="department-section">
-            <div class="department-header">
+        <div class="department-section" style="border: 2px solid grey">
+            <div class="department-header" style="border-bottom: 2px solid grey;">
                 <div class="department-image">
                     <img src="../img/IA.png" alt="Internal Affair"> 
                 </div>
                 <div class="department-info">
-                    <div class="department-title">⟨ INTERNAL AFFAIR ⟩</div>
+                    <div class="department-title" style="color: grey; text-shadow: 0 0 20px grey;">⟨ INTERNAL AFFAIR ⟩</div>
                 </div>
             </div>
 
             <div class="personnel-title">► PERSONNEL</div>
             <div class="personnel-grid">
-                <div class="personnel-card">
+                <div class="personnel-card" style="border: 2px solid grey;">
                     <div class="personnel-header">
                         <div class="personnel-name">'Kyuubi'</div>
                         <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
@@ -554,15 +609,16 @@
                     </div>
                     <div class="personnel-info">
                         <span class="label">RELATION:</span>
-                        <span class="value" style="color: maroon;">Dislike</span>
+                        <span class="value" style="color: red;">Dislike</span>
                     </div>
                     <div class="personnel-info">
                         <span class="label">THOUGHTS:</span>
+                        <div></div>
                         <span class="value">"Actions speak louder than word... To what point?"</span>
                     </div>
                 </div>
 
-                <div class="personnel-card">
+                <div class="personnel-card" style="border: 2px solid grey;">
                     <div class="personnel-header">
                         <div class="personnel-name">'Aegis'</div>
                         <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
@@ -577,6 +633,7 @@
                     </div>
                     <div class="personnel-info">
                         <span class="label">THOUGHTS:</span>
+                        <div></div>
                         <span class="value">"STOP ASKING WHY IM FRENCH PLEASEEEE!"</span>
                     </div>
                 </div>
@@ -584,19 +641,19 @@
         </div>
 
         <!-- XI-8 'LAST TO FALL' -->
-        <div class="department-section">
-            <div class="department-header">
+        <div class="department-section" style="border: 2px solid purple;">
+            <div class="department-header" style="border-bottom: 2px solid purple;">
                 <div class="department-image">
                     <img src="../img/XI8.png" alt="XI-8"> 
                 </div>
                 <div class="department-info">
-                    <div class="department-title">⟨ XI-8 'LAST TO FALL' ⟩</div>
+                    <div class="department-title" style="color: purple; text-shadow: 0 0 20px purple;">⟨ XI-8 'LAST TO FALL' ⟩</div>
                 </div>
             </div>
 
             <div class="personnel-title">► PERSONNEL</div>
             <div class="personnel-grid">
-                <div class="personnel-card">
+                <div class="personnel-card" style="border: 2px solid purple;">
                     <div class="personnel-header">
                         <div class="personnel-name">'Obsidian'</div>
                         <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
@@ -611,11 +668,12 @@
                     </div>
                     <div class="personnel-info">
                         <span class="label">THOUGHTS:</span>
+                        <div></div>
                         <span class="value">"Twice now. Twice that you helped me clear my mind, clear my doubt. Yet it was the second time too much. I will be better and trust my judgement. Thanks."</span>
                     </div>
                 </div>
 
-                <div class="personnel-card">
+                <div class="personnel-card" style="border: 2px solid purple;">
                     <div class="personnel-header">
                         <div class="personnel-name">'Arcana'</div>
                         <div class="personnel-rank" style="color: maroon;">Deceased</div>
@@ -626,15 +684,16 @@
                     </div>
                     <div class="personnel-info">
                         <span class="label">RELATION:</span>
-                        <span class="value" style="color: red;">Hate</span>
+                        <span class="value" style="color: red;">Dislike</span>
                     </div>
                     <div class="personnel-info">
                         <span class="label">THOUGHTS:</span>
+                        <div></div>
                         <span class="value">"You just had to bring me into that room. That quiet and bad smelling room. All that to interogate me in the worst way possible."</span>
                     </div>
                 </div>
 
-                <div class="personnel-card">
+                <div class="personnel-card" style="border: 2px solid purple;">
                     <div class="personnel-header">
                         <div class="personnel-name">'Curie'</div>
                         <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
@@ -645,10 +704,11 @@
                     </div>
                     <div class="personnel-info">
                         <span class="label">RELATION:</span>
-                        <span class="value" style="color: maroon;">Dislike</span>
+                        <span class="value" style="color: red;">Dislike</span>
                     </div>
                     <div class="personnel-info">
                         <span class="label">THOUGHTS:</span>
+                        <div></div>
                         <span class="value">"We are not executioner? Say this to the people you killed. Say this to the D-Class who died for our test. We are executioners. Just not for SCPs"</span>
                     </div>
                 </div>
@@ -656,47 +716,50 @@
         </div>
 
         <!-- SITE COMMAND -->
-        <div class="department-section">
-            <div class="department-header">
+        <div class="department-section" style="border: 2px solid white;">
+            <div class="department-header" style="border-bottom: 2px solid white;">
                 <div class="department-info">
-                    <div class="department-title">⟨ SITE COMMAND ⟩</div>
+                    <div class="department-title" style="color: white; text-shadow: 0 0 20px white;">⟨ SITE COMMAND ⟩</div>
                 </div>
             </div>
 
             <div class="personnel-title">► PERSONNEL</div>
             <div class="personnel-grid">
-                <div class="personnel-card">
+                <div class="personnel-card" style="border: 2px solid white;">
                     <div class="personnel-header">
                         <div class="personnel-name">'Druid'</div>
                         <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
                     </div>
                     <div class="personnel-info">
                         <span class="label">POSITION:</span>
-                        <span class="value">Assistant Site Director</span>
+                        <span class="value">Site Director</span>
                     </div>
                     <div class="personnel-info">
                         <span class="label">RELATION:</span>
-                        <span class="value" style="color: green;">Positive</span>
+                        <span class="value" style="color: yellowgreen;">Like</span>
                     </div>
                     <div class="personnel-info">
                         <span class="label">THOUGHTS:</span>
+                        <div></div>
                         <span class="value">"You gave me a good dilemma. You also made me realise that orders are more important than life. Ethics are none important if they come from higher up. Now you congratulated me for my action. I guess I did the right thing. I thanks you for letting me know you'll always be there to talk."</span>
+                        <div></div>
+                        <span class="value">[NEW]: "You made it to the big leagues. But you got more pressure. Make sure it doesn't get to you too much."</span>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- D-CLASS -->
-        <div class="department-section">
-            <div class="department-header">
+        <div class="department-section" style="border: 2px solid #ff9914;">
+            <div class="department-header" style="border-bottom: 2px solid #ff9914;">
                 <div class="department-info">
-                    <div class="department-title">⟨ D-CLASS ⟩</div>
+                    <div class="department-title" style="color: #ff9914; text-shadow: 0 0 20px #ff9914;">⟨ D-CLASS ⟩</div>
                 </div>
             </div>
 
             <div class="personnel-title">► PERSONNEL</div>
             <div class="personnel-grid">
-                <div class="personnel-card">
+                <div class="personnel-card" style="border: 2px solid #ff9914;">
                     <div class="personnel-header">
                         <div class="personnel-name">'Eggs'</div>
                         <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
@@ -711,11 +774,12 @@
                     </div>
                     <div class="personnel-info">
                         <span class="label">THOUGHTS:</span>
+                        <div></div>
                         <span class="value">"My top D-Class. Never combative but always manage to escape."</span>
                     </div>
                 </div>
 
-                <div class="personnel-card">
+                <div class="personnel-card" style="border: 2px solid #ff9914;">
                     <div class="personnel-header">
                         <div class="personnel-name">'Micro'</div>
                         <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
@@ -726,15 +790,16 @@
                     </div>
                     <div class="personnel-info">
                         <span class="label">RELATION:</span>
-                        <span class="value" style="color: yellowgreen;">Hate</span>
+                        <span class="value" style="color: grey;">Mixed</span>
                     </div>
                     <div class="personnel-info">
                         <span class="label">THOUGHTS:</span>
+                        <div></div>
                         <span class="value">"A more combative D-Class. But recently you shown me the light. I couldn't kill another armless human being. I should have stopped 'Bane'... You've betrayed me. You letted those CI take me away! Was I not good enought towards you!?"</span>
                     </div>
                 </div>
 
-                <div class="personnel-card">
+                <div class="personnel-card" style="border: 2px solid #ff9914;">
                     <div class="personnel-header">
                         <div class="personnel-name">'Steel'</div>
                         <div class="personnel-rank" style="color: yellowgreen;">Alive</div>
@@ -749,6 +814,7 @@
                     </div>
                     <div class="personnel-info">
                         <span class="label">THOUGHTS:</span>
+                        <div></div>
                         <span class="value">"You told me intersting stuff. Now I know what to do to try and save this world. Or help those who are lost in their"</span>
                     </div>
                 </div>
